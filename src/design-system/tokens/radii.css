@@ -1,0 +1,19 @@
+/*
+ * Border Radius Tokens — PFM Design System
+ *
+ * Glassmorphism uses generous radii for soft, modern shapes.
+ * Semantic names map to component contexts.
+ */
+
+@theme {
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-card: 1rem;
+  --radius-button: 0.625rem;
+  --radius-input: 0.5rem;
+  --radius-badge: 9999px;
+  --radius-modal: 1.25rem;
+}

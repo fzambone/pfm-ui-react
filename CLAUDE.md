@@ -8,6 +8,7 @@
 - **Package manager:** pnpm (strict, frozen lockfile in CI)
 - **Node:** 20 LTS (pinned in `.nvmrc`)
 - **Commits:** Conventional Commits:
+
   ```
   type(scope): imperative description
 
@@ -15,8 +16,10 @@
 
   closes #N
   ```
+
   Prefixes: `feat`, `fix`, `refactor`, `test`, `chore`, `docs`, `style`.
   Scope = feature or UI concern (e.g. `auth`, `dashboard`, `household`, `routing`).
+
 - **Git:** Trunk-based, squash-merge, short-lived branches: `feat/<scope>-<description>-<N>`
 - **CI Gate:** `pnpm lint && pnpm type-check && pnpm test:coverage && pnpm build`. All must pass.
 
@@ -29,70 +32,116 @@
 5. **No magic.** No class-based state managers, no DI containers. React hooks + context + server state (React Query when introduced). Explicit wiring.
 6. **Hermetic tests.** Unit/component = Vitest + Testing Library, never real network calls (use `msw` for API mocking when introduced). E2E = Playwright against the built app.
 7. **Coverage gate.** 80% minimum on branches, functions, lines, statements. Enforced in CI.
+8. **Design system first.** All UI is built from centralized, atomic, generic shared components. No inline styles without explicit approval. No hardcoded visual values — use design tokens via Tailwind classes.
+
+## Design System Philosophy
+
+### Core Principles
+
+1. **Centralized design tokens.** All colors, spacing, typography, radii, shadows, and motion values live in the Tailwind CSS theme (`@theme` in CSS). Components consume tokens — they never hardcode values.
+2. **No inline styles.** Tailwind utility classes are the styling mechanism. Inline `style={}` is a last resort — only when a value is truly dynamic at runtime (e.g., user-set color, computed position). **Always confirm with the user** before using inline styles, with a rationale for why the design system can't cover the case.
+3. **Atomic components.** Shared components are the smallest useful unit (Button, Input, Badge, Icon — not LoginForm). They compose upward, never assume context.
+4. **Agnostic and generic.** Shared components know nothing about the domain. A `Card` doesn't know it displays a household — it accepts children, variants, and slots. Feature-specific wrappers compose shared atoms.
+5. **Highly customizable by default.** Every shared component exposes: variant props (visual style), size props, className override (merged via `cn()`), and HTML attribute passthrough (`...rest` spread). Build for the 90% case, but never lock out the 10%.
+6. **Confirm before limiting.** If a component doesn't warrant full generic treatment (e.g., a one-off layout wrapper), stop and explain why to the user before proceeding with a narrower API.
+
+### Styling Rules
+
+| Rule                        | Details                                                                             |
+| --------------------------- | ----------------------------------------------------------------------------------- |
+| **Primary mechanism**       | Tailwind utility classes                                                            |
+| **Token source**            | `@theme` block in CSS — single source of truth                                      |
+| **Class merging**           | `cn()` utility (wraps `clsx` + `tailwind-merge`) for conditional + override classes |
+| **Inline styles**           | Last resort only. Requires explicit user approval with rationale                    |
+| **`@apply`**                | Forbidden in component CSS. Defeats utility-first purpose                           |
+| **CSS modules / CSS-in-JS** | Forbidden. Tailwind utilities + `cn()` cover all cases                              |
+
+### Component API Standards
+
+Every shared component in `shared/components/` follows this contract:
+
+- **`variant`** — visual style (e.g., `'primary' | 'secondary' | 'ghost' | 'danger'`)
+- **`size`** — dimension scale (e.g., `'sm' | 'md' | 'lg'`)
+- **`className`** — merged with internal classes via `cn()`, never replaces them
+- **`children`** or **slots** — composition over configuration
+- **`...rest`** — HTML attribute passthrough for escape hatch and accessibility
+- **`as` / `asChild`** — polymorphic rendering when the element type must vary (evaluated per component)
 
 ## Architecture — Feature-Based
 
 ```
 src/
-  features/           → one folder per domain feature
+  design-system/        → centralized design tokens and theme
+    tokens/             → CSS files with @theme definitions
+    index.css           → main design system entry point
+  shared/               → truly reusable across features
+    components/         → Atomic UI components (Button, Input, Modal, etc.)
+      Button/
+        Button.tsx      → component implementation
+        Button.test.tsx → component tests
+        index.ts        → public export
+    hooks/              → useDebounce, useLocalStorage, etc.
+    utils/              → pure utility functions (cn, formatCurrency, etc.)
+    types/              → shared TypeScript types
+  features/             → one folder per domain feature
     auth/
-      components/     → React components for this feature
-      hooks/          → custom hooks
-      api/            → API call functions (fetch wrappers)
-      types.ts        → TypeScript types for this feature
-      index.ts        → public API of the feature (barrel export)
+      components/       → Feature-specific components (compose shared atoms)
+      hooks/            → custom hooks
+      api/              → API call functions (fetch wrappers)
+      types.ts          → TypeScript types for this feature
+      index.ts          → public API of the feature (barrel export)
     household/
     dashboard/
-  shared/             → truly reusable across features
-    components/       → Button, Input, Modal, etc.
-    hooks/            → useDebounce, useLocalStorage, etc.
-    utils/            → pure utility functions
-    types/            → shared TypeScript types
-  test/               → global test setup and utilities
-  main.tsx            → entry point — wires everything
-  App.tsx             → root component + routing
+  test/                 → global test setup and utilities
+  main.tsx              → entry point — wires everything
+  App.tsx               → root component + routing
 ```
 
 ### Import Rules
 
-| Layer | Can Import | NEVER Imports |
-|-------|-----------|---------------|
-| `features/*` | `shared/`, external libs | Other `features/` directly |
-| `shared/*` | external libs, stdlib | `features/` |
-| `main.tsx` / `App.tsx` | Everything (composition root) | — |
+| Layer                  | Can Import                                        | NEVER Imports              |
+| ---------------------- | ------------------------------------------------- | -------------------------- |
+| `features/*`           | `shared/`, external libs                          | Other `features/` directly |
+| `shared/*`             | `design-system/` (via CSS), external libs, stdlib | `features/`                |
+| `design-system/*`      | Tailwind, external libs                           | `shared/`, `features/`     |
+| `main.tsx` / `App.tsx` | Everything (composition root)                     | —                          |
 
 Features communicate through lifted state, context, or URL (router). Never direct cross-feature imports.
 
+**Shared components** are atomic building blocks — they compose into feature-specific components inside `features/*/components/`. A feature component like `HouseholdCard` wraps shared atoms (`Card`, `Badge`, `Button`) with domain-specific props and logic.
+
 ## Naming Conventions
 
-| Thing | Convention | Example |
-|-------|-----------|---------|
-| Component file | PascalCase | `HouseholdCard.tsx` |
-| Hook file | camelCase with `use` prefix | `useHouseholdList.ts` |
-| Utility file | camelCase | `formatCurrency.ts` |
-| Type file | camelCase | `types.ts` |
-| Component | PascalCase noun | `HouseholdCard` |
-| Hook | `use` + PascalCase verb/noun | `useHouseholdList` |
-| Handler prop | `on` + PascalCase event | `onDelete`, `onSubmit` |
-| Boolean prop | `is`/`has`/`can` prefix | `isLoading`, `hasError` |
-| Test file | Same name + `.test.tsx` | `HouseholdCard.test.tsx` |
-| Test function | `describe('<Component>')` + `it('<behavior>')` | — |
-| E2E file | Feature + `.spec.ts` | `household.spec.ts` |
+| Thing                   | Convention                                     | Example                     |
+| ----------------------- | ---------------------------------------------- | --------------------------- |
+| Component file          | PascalCase                                     | `HouseholdCard.tsx`         |
+| Hook file               | camelCase with `use` prefix                    | `useHouseholdList.ts`       |
+| Utility file            | camelCase                                      | `formatCurrency.ts`         |
+| Type file               | camelCase                                      | `types.ts`                  |
+| Component               | PascalCase noun                                | `HouseholdCard`             |
+| Hook                    | `use` + PascalCase verb/noun                   | `useHouseholdList`          |
+| Handler prop            | `on` + PascalCase event                        | `onDelete`, `onSubmit`      |
+| Boolean prop            | `is`/`has`/`can` prefix                        | `isLoading`, `hasError`     |
+| Test file               | Same name + `.test.tsx`                        | `HouseholdCard.test.tsx`    |
+| Test function           | `describe('<Component>')` + `it('<behavior>')` | —                           |
+| E2E file                | Feature + `.spec.ts`                           | `household.spec.ts`         |
+| Shared component folder | PascalCase matching component                  | `Button/`, `Modal/`         |
+| Design token file       | kebab-case                                     | `colors.css`, `spacing.css` |
 
 ## Technology Stack
 
-| Concern | Choice |
-|---------|--------|
-| Framework | React 19 |
-| Language | TypeScript 5 (strict) |
-| Build | Vite 8 |
-| Styling | Tailwind CSS v4 |
-| Linting | ESLint 9 (flat config) + Google TS rules |
-| Formatting | Prettier (Google style) |
-| Unit/Component tests | Vitest + @testing-library/react |
-| E2E tests | Playwright (Chromium in CI) |
-| API mocking | msw (when introduced) |
-| HTTP client | Native `fetch` (no axios unless justified) |
+| Concern              | Choice                                     |
+| -------------------- | ------------------------------------------ |
+| Framework            | React 19                                   |
+| Language             | TypeScript 5 (strict)                      |
+| Build                | Vite 8                                     |
+| Styling              | Tailwind CSS v4                            |
+| Linting              | ESLint 9 (flat config) + Google TS rules   |
+| Formatting           | Prettier (Google style)                    |
+| Unit/Component tests | Vitest + @testing-library/react            |
+| E2E tests            | Playwright (Chromium in CI)                |
+| API mocking          | msw (when introduced)                      |
+| HTTP client          | Native `fetch` (no axios unless justified) |
 
 ### Dependency Policy
 
@@ -102,13 +151,14 @@ Features communicate through lifted state, context, or URL (router). Never direc
 
 ## Design Decisions
 
-**Tailwind v4:** CSS-first configuration (no `tailwind.config.js`). Theme tokens defined with `@theme` in CSS. Utility classes only — no `@apply` in component CSS (defeats the purpose).
+**Tailwind v4:** CSS-first configuration (no `tailwind.config.js`). Theme tokens defined with `@theme` in CSS. Utility classes only — no `@apply` in component CSS (defeats the purpose). All visual decisions (colors, spacing, radii, shadows, typography scales) are centralized in `src/design-system/tokens/`. Components reference these tokens through Tailwind classes — never raw hex values, pixel values, or inline styles.
 
 **TypeScript strict mode:** `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitReturns` all enabled. Array indexing returns `T | undefined`. Treat this as the natural state — don't suppress with `!`.
 
 **No barrel `index.ts` in component folders:** Import from the specific file. Barrel exports cause circular dependency risk and make tree-shaking harder. Exception: feature `index.ts` is the public API — nothing outside the feature imports from sub-paths.
 
 **Testing philosophy:**
+
 - Unit tests for pure functions and custom hooks (`renderHook`)
 - Component tests for rendering, interaction, and accessibility (`render` + `userEvent`)
 - E2E tests for complete user flows (Playwright)
@@ -125,12 +175,12 @@ Features communicate through lifted state, context, or URL (router). Never direc
 
 ## Testing
 
-| Layer | Tool | What It Tests |
-|-------|------|---------------|
-| Pure functions | Vitest | Input/output, edge cases |
-| Custom hooks | Vitest + `renderHook` | State logic, side effects |
-| Components | Vitest + Testing Library | Rendering, interaction, accessibility |
-| User flows | Playwright | Full feature flows, navigation |
+| Layer          | Tool                     | What It Tests                         |
+| -------------- | ------------------------ | ------------------------------------- |
+| Pure functions | Vitest                   | Input/output, edge cases              |
+| Custom hooks   | Vitest + `renderHook`    | State logic, side effects             |
+| Components     | Vitest + Testing Library | Rendering, interaction, accessibility |
+| User flows     | Playwright               | Full feature flows, navigation        |
 
 - **Queries in priority order:** `getByRole` > `getByLabelText` > `getByPlaceholderText` > `getByText` > `getByTestId`. Never `getByTestId` as first choice.
 - **`userEvent` over `fireEvent`:** `userEvent` simulates real browser behavior (focus, keyboard, pointer events). `fireEvent` is for edge cases only.
@@ -150,6 +200,19 @@ Features communicate through lifted state, context, or URL (router). Never direc
 - [ ] **Accessibility:** Interactive elements have ARIA labels, keyboard navigation works
 - [ ] **Architecture:** No cross-feature imports, feature public API through `index.ts`
 - [ ] **Performance:** No unnecessary re-renders (check with React DevTools profiler if in doubt)
+
+## API Reference
+
+The backend exposes an OpenAPI 3 spec and interactive docs. **Always fetch the spec before writing any API integration code** — it is the authoritative source for endpoint paths, request/response shapes, authentication requirements, and error codes.
+
+| Resource            | URL                                              | Purpose                                                            |
+| ------------------- | ------------------------------------------------ | ------------------------------------------------------------------ |
+| OpenAPI spec (YAML) | `https://pfm-go-api.fly.dev/api/v1/openapi.yaml` | Machine-readable — fetch with WebFetch when implementing API calls |
+| Interactive docs    | `https://pfm-go-api.fly.dev/docs`                | Human-readable Redoc UI                                            |
+
+> Once pfm-infra M1 is complete, the canonical base URL becomes `https://pfm-go-api.zambone.dev`. Update imports and msw handlers when that migration lands.
+
+**Rule:** When implementing any feature that calls the API, fetch `openapi.yaml` first. Do not guess endpoint paths, field names, or auth headers — read the spec.
 
 ## Build & Run
 

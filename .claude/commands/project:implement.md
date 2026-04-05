@@ -22,6 +22,7 @@ gh issue view <N>
 ```
 
 Read the full issue body carefully. Extract:
+
 - The stated **goal** — what problem this solves
 - Explicit **acceptance criteria** (checklist items in the issue body)
 - Implicit requirements in prose
@@ -99,12 +100,14 @@ Follow strict **RED → GREEN → REFACTOR** for every unit.
 ### TDD by unit type
 
 **Custom hooks:**
+
 - Write a failing `renderHook` test first
 - Confirm it fails (RED)
 - Implement the hook to make it pass (GREEN)
 - Refactor
 
 **Components:**
+
 - Write a failing `render` + assertion test first
 - Confirm it fails (RED)
 - Implement the component to make it pass (GREEN)
@@ -112,11 +115,13 @@ Follow strict **RED → GREEN → REFACTOR** for every unit.
 - Add accessibility assertions
 
 **Pure utilities:**
+
 - Write the failing unit test first
 - Confirm it fails (RED)
 - Implement to pass (GREEN)
 
 **E2E flows:**
+
 - Write the Playwright spec describing the user journey
 - Confirm it fails against the current state (RED)
 - Implement features until the spec passes (GREEN)
@@ -196,6 +201,7 @@ All categories must PASS. Fix every violation before proceeding.
 ## Phase 6 — Wrap Up
 
 Report to the user:
+
 - Story summary: what was implemented
 - Files changed (list with one-line description of each)
 - Test coverage added

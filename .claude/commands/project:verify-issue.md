@@ -18,6 +18,7 @@ gh issue view <N>
 ```
 
 Read the full issue body carefully. Extract:
+
 - The stated **goal** or problem being solved
 - Explicit **acceptance criteria** (checklist items in the issue body)
 - Implicit requirements described in prose

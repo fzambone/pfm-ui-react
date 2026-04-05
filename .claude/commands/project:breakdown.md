@@ -13,6 +13,7 @@ gh issue view <N> --repo fzambone/pfm-ui-react
 Extract: breakdown pattern, acceptance criteria, scope boundaries, dependencies.
 
 Assess the existing codebase:
+
 - Read relevant feature folders
 - Check for existing components, hooks, or types that the new issues can build on
 - Note the layer order: types → hooks → components → wiring
@@ -31,25 +32,32 @@ Map each item in the epic's breakdown to a full issue. For each:
 
 ```markdown
 ## Context
+
 Why this issue exists, what UI layer, how it fits.
 
 ## Depends On
+
 - #{N} — what's needed
 
 ## What This Enables
+
 - What this unlocks
 
 ## Acceptance Criteria
+
 1. When {user action}, {observable outcome}.
 
 ## Edge Cases to Handle
+
 - [ ] {edge case}
 
 ## Scope Boundaries
+
 - No {exclusion}.
 ```
 
 **Quality standards:**
+
 - User-facing language: "When the user clicks X, Y happens"
 - No code snippets
 - Each issue independently verifiable in the browser

@@ -1,6 +1,7 @@
 # Audit Test Coverage and TDD Compliance
 
 Run this skill after implementing any feature. Two phases:
+
 1. **Coverage** — measure and report per-feature coverage
 2. **TDD compliance** — audit naming, structure, isolation, and patterns
 
@@ -20,20 +21,22 @@ Parse the coverage output and report per-feature coverage.
 
 **Thresholds:**
 
-| Package group | Minimum |
-|---------------|---------|
-| `src/features/*/hooks/` | ≥ 90% |
-| `src/features/*/components/` | ≥ 80% |
-| `src/shared/` | ≥ 85% |
-| `src/features/*/api/` | ≥ 80% |
+| Package group                | Minimum |
+| ---------------------------- | ------- |
+| `src/features/*/hooks/`      | ≥ 90%   |
+| `src/features/*/components/` | ≥ 80%   |
+| `src/shared/`                | ≥ 85%   |
+| `src/features/*/api/`        | ≥ 80%   |
 
 **Exclude from gate:**
+
 - `src/main.tsx` — entry point
 - `src/test/` — test setup files
 - `*.d.ts` — type declarations
 - `src/**/index.ts` — barrel exports with no logic
 
 **Flag:**
+
 - Any non-excluded file with 0% coverage
 - Any hooks file below 90%
 - Any component file below 80%
@@ -89,7 +92,7 @@ Read every `*.test.{ts,tsx}` file in changed areas. Check each item.
 ### Accessibility Testing
 
 - [ ] At least one accessibility assertion per interactive component:
-  `expect(element).toBeAccessible()` or role-based query as implicit check
+      `expect(element).toBeAccessible()` or role-based query as implicit check
 - [ ] Form inputs tested with label association: `getByLabelText` not `getByPlaceholderText`
 - [ ] Error messages tested with `getByRole('alert')` or `aria-live` assertions
 
