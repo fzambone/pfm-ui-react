@@ -1,0 +1,21 @@
+/*
+ * PFM Design System — Entry Point
+ *
+ * Imports all token files in dependency order.
+ * This file is the single import for the entire design system.
+ *
+ * Import order matters:
+ * 1. Colors first — other tokens may reference color values
+ * 2. Typography — font definitions
+ * 3. Spacing — layout rhythm
+ * 4. Radii — border shapes
+ * 5. Shadows — depth (references colors)
+ * 6. Effects — glassmorphism blur, transitions
+ */
+
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/radii.css';
+@import './tokens/shadows.css';
+@import './tokens/effects.css';

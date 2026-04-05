@@ -1,0 +1,20 @@
+/*
+ * Spacing Tokens — PFM Design System
+ *
+ * Extends Tailwind's default spacing scale with semantic spacing tokens
+ * for consistent component and layout spacing.
+ *
+ * Tailwind's default 0-96 scale is preserved — these add semantic aliases
+ * so components reference intent (e.g., `gap-section`) not raw numbers.
+ */
+
+@theme {
+  /* ---------- Semantic spacing ---------- */
+  --spacing-page: 1.5rem;
+  --spacing-section: 2rem;
+  --spacing-card: 1.25rem;
+  --spacing-card-sm: 0.75rem;
+  --spacing-element: 0.75rem;
+  --spacing-inline: 0.5rem;
+  --spacing-tight: 0.25rem;
+}

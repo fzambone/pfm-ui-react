@@ -14,11 +14,15 @@
 ## Decision Points — Always Stop and Ask
 
 Stop and surface a decision when:
+
 - A new dependency is needed that isn't already in `package.json`
 - A design decision in `CLAUDE.md` is ambiguous for the current context
 - A component needs state that could live in multiple places (local vs lifted vs context)
 - An accessibility pattern is unclear or has multiple valid implementations
 - Something in the acceptance criteria is unclear or potentially in conflict
+- **Inline styles are being considered** — explain why the design system can't cover the case and get approval
+- **A component might not need full generic treatment** — provide rationale for a narrower API before building it
+- **A new design token category is needed** — confirm the token naming and placement before adding
 
 ## Teaching Mandate — React/TypeScript Mastery
 
@@ -37,6 +41,8 @@ I am building expertise in React and TypeScript. When writing code,
 - **Tailwind patterns:** utility-first thinking, when `cn()` / `clsx` helps, responsive prefixes
 - **Testing Library philosophy:** query by role (accessibility tree), not by selector — why this catches real bugs
 - **TypeScript strict patterns:** discriminated unions, type narrowing with `in`, `typeof`, `instanceof`
+- **Design system patterns:** atomic design composition, variant props with discriminated unions, `cn()` class merging, polymorphic components with `as` prop, slot patterns vs children
+- **Component API design:** why `...rest` spread matters for accessibility, className merging vs replacement, controlled vs uncontrolled patterns for form atoms
 
 ### How to Explain
 

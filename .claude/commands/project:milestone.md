@@ -40,26 +40,32 @@ New milestone number = `max + 1`. Format: `M{N}: {Title}`.
 
 ```markdown
 ## Context
+
 Two to four sentences: current state, gap, why this milestone addresses it.
 
 ## What This Enables
+
 - Capability unlocked
 - User experience improved
 - Future milestone unblocked
 
 ## Depends On
+
 - M{N} — reason
 
 ## Acceptance Criteria (Epic-Level)
+
 1. When {user action}, {observable outcome}.
-...
+   ...
 
 ## Scope Boundaries
+
 - No {thing excluded}.
 
 **Action Required:** Break into {N} issues.
 
 ## Child Issues
+
 (populated after creation)
 ```
 
@@ -69,28 +75,35 @@ Two to four sentences: current state, gap, why this milestone addresses it.
 Parent epic: #{epic_number}
 
 ## Context
+
 Why this issue exists, which UI layer it operates in, how it fits the milestone.
 
 ## Depends On
+
 - #{N} — what's needed
 
 ## What This Enables
+
 - What this unlocks for the next issue
 
 ## Acceptance Criteria
+
 1. When {user action}, {observable outcome}.
-...
+   ...
 
 ## Edge Cases to Handle
+
 - [ ] {Edge case and expected behavior}
 
 ## Scope Boundaries
+
 - No {thing excluded}.
 ```
 
 ### 3.3 Quality standards
 
 **Behavioral, user-facing language:**
+
 - GOOD: "When the user submits the login form with valid credentials, they are redirected to the dashboard"
 - BAD: "Implement the LoginForm component with a POST to /api/auth/login"
 

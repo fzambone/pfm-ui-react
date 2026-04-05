@@ -27,6 +27,7 @@ Before committing, verify we built the **right thing**:
 - **Accessibility:** Are all interactive elements keyboard-navigable and properly labelled?
 
 Report the verdict:
+
 ```
 Business Alignment: PASS / NEEDS DISCUSSION
 - [criterion 1] → addressed / not addressed
@@ -47,6 +48,7 @@ git add <file1> <file2> ...
 ```
 
 Exclude:
+
 - `.claude/plans/` — plan files are session artifacts, not repo history
 - `coverage/` — generated output
 - `playwright-report/` — generated output
@@ -69,6 +71,7 @@ closes #N
 ```
 
 Rules:
+
 - `type`: `feat`, `fix`, `refactor`, `test`, `chore`, `docs`, `style`
 - `scope`: feature domain (e.g. `auth`, `household`, `dashboard`)
 - Subject: lowercase, no period, imperative mood (`add`, `fix`, `wire`)

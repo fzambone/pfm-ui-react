@@ -1,0 +1,74 @@
+/*
+ * Color Tokens — PFM Design System
+ *
+ * Semantic color names only — never raw color names like "blue" or "purple".
+ * Components use tokens like `bg-surface` or `text-foreground`, not `bg-blue-500`.
+ *
+ * Glassmorphism palette: cool indigo/violet primary, translucent surfaces,
+ * subtle glass borders. All surface colors include alpha for translucency.
+ *
+ * Dark mode overrides are defined in a separate file (#15).
+ */
+
+@theme {
+  /* ---------- Background ---------- */
+  --color-background: #0f172a;
+  --color-background-subtle: #1e293b;
+
+  /* ---------- Surfaces (glass layers) ---------- */
+  --color-surface: rgba(255, 255, 255, 0.12);
+  --color-surface-raised: rgba(255, 255, 255, 0.18);
+  --color-surface-overlay: rgba(255, 255, 255, 0.08);
+
+  /* ---------- Glass borders ---------- */
+  --color-border: rgba(255, 255, 255, 0.15);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.25);
+
+  /* ---------- Foreground (text) ---------- */
+  --color-foreground: #f1f5f9;
+  --color-foreground-muted: #94a3b8;
+  --color-foreground-subtle: #64748b;
+  --color-foreground-inverse: #0f172a;
+
+  /* ---------- Primary (indigo/violet) ---------- */
+  --color-primary: #6366f1;
+  --color-primary-hover: #818cf8;
+  --color-primary-active: #4f46e5;
+  --color-primary-foreground: #ffffff;
+  --color-primary-muted: rgba(99, 102, 241, 0.2);
+
+  /* ---------- Accent (teal/cyan) ---------- */
+  --color-accent: #14b8a6;
+  --color-accent-hover: #2dd4bf;
+  --color-accent-active: #0d9488;
+  --color-accent-foreground: #ffffff;
+  --color-accent-muted: rgba(20, 184, 166, 0.2);
+
+  /* ---------- Semantic: Success (income/positive) ---------- */
+  --color-success: #22c55e;
+  --color-success-hover: #4ade80;
+  --color-success-foreground: #ffffff;
+  --color-success-muted: rgba(34, 197, 94, 0.2);
+
+  /* ---------- Semantic: Danger (expenses/negative) ---------- */
+  --color-danger: #ef4444;
+  --color-danger-hover: #f87171;
+  --color-danger-foreground: #ffffff;
+  --color-danger-muted: rgba(239, 68, 68, 0.2);
+
+  /* ---------- Semantic: Warning ---------- */
+  --color-warning: #f59e0b;
+  --color-warning-hover: #fbbf24;
+  --color-warning-foreground: #0f172a;
+  --color-warning-muted: rgba(245, 158, 11, 0.2);
+
+  /* ---------- Semantic: Info ---------- */
+  --color-info: #3b82f6;
+  --color-info-hover: #60a5fa;
+  --color-info-foreground: #ffffff;
+  --color-info-muted: rgba(59, 130, 246, 0.2);
+
+  /* ---------- Focus ring ---------- */
+  --color-ring: rgba(99, 102, 241, 0.5);
+}
