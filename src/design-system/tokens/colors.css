@@ -1,74 +1,136 @@
 /*
  * Color Tokens — PFM Design System
  *
- * Semantic color names only — never raw color names like "blue" or "purple".
- * Components use tokens like `bg-surface` or `text-foreground`, not `bg-blue-500`.
+ * Warm, dark glassmorphism — smoky dark glass surfaces, warm orange accent,
+ * ambient warm lighting. Inspired by premium fintech dashboards.
  *
- * Glassmorphism palette: cool indigo/violet primary, translucent surfaces,
- * subtle glass borders. All surface colors include alpha for translucency.
- *
- * Dark mode overrides are defined in a separate file (#15).
+ * Structure:
+ * - @theme defines dark mode defaults (primary aesthetic)
+ * - @media (prefers-color-scheme: light) overrides for light mode
+ * - Both modes live in this single file per issue #15
  */
 
 @theme {
   /* ---------- Background ---------- */
-  --color-background: #0f172a;
-  --color-background-subtle: #1e293b;
+  --color-background: #0c0c14;
+  --color-background-subtle: #14141f;
 
-  /* ---------- Surfaces (glass layers) ---------- */
-  --color-surface: rgba(255, 255, 255, 0.12);
-  --color-surface-raised: rgba(255, 255, 255, 0.18);
-  --color-surface-overlay: rgba(255, 255, 255, 0.08);
+  /* ---------- Surfaces (dark smoky glass — very translucent) ---------- */
+  --color-surface: rgba(20, 20, 30, 0.30);
+  --color-surface-raised: rgba(30, 30, 45, 0.35);
+  --color-surface-overlay: rgba(15, 15, 25, 0.45);
 
-  /* ---------- Glass borders ---------- */
+  /* ---------- Glass borders (frosted edge highlights) ---------- */
   --color-border: rgba(255, 255, 255, 0.15);
   --color-border-subtle: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.25);
 
   /* ---------- Foreground (text) ---------- */
-  --color-foreground: #f1f5f9;
-  --color-foreground-muted: #94a3b8;
-  --color-foreground-subtle: #64748b;
-  --color-foreground-inverse: #0f172a;
+  --color-foreground: #f5f5f5;
+  --color-foreground-muted: #a1a1aa;
+  --color-foreground-subtle: #71717a;
+  --color-foreground-inverse: #0c0c14;
 
-  /* ---------- Primary (indigo/violet) ---------- */
-  --color-primary: #6366f1;
-  --color-primary-hover: #818cf8;
-  --color-primary-active: #4f46e5;
+  /* ---------- Primary (warm orange) ---------- */
+  --color-primary: #f97316;
+  --color-primary-hover: #fb923c;
+  --color-primary-active: #ea580c;
   --color-primary-foreground: #ffffff;
-  --color-primary-muted: rgba(99, 102, 241, 0.2);
+  --color-primary-muted: rgba(249, 115, 22, 0.15);
 
-  /* ---------- Accent (teal/cyan) ---------- */
-  --color-accent: #14b8a6;
-  --color-accent-hover: #2dd4bf;
-  --color-accent-active: #0d9488;
-  --color-accent-foreground: #ffffff;
-  --color-accent-muted: rgba(20, 184, 166, 0.2);
+  /* ---------- Accent (warm amber/gold) ---------- */
+  --color-accent: #f59e0b;
+  --color-accent-hover: #fbbf24;
+  --color-accent-active: #d97706;
+  --color-accent-foreground: #0c0c14;
+  --color-accent-muted: rgba(245, 158, 11, 0.15);
 
   /* ---------- Semantic: Success (income/positive) ---------- */
   --color-success: #22c55e;
   --color-success-hover: #4ade80;
   --color-success-foreground: #ffffff;
-  --color-success-muted: rgba(34, 197, 94, 0.2);
+  --color-success-muted: rgba(34, 197, 94, 0.15);
 
   /* ---------- Semantic: Danger (expenses/negative) ---------- */
   --color-danger: #ef4444;
   --color-danger-hover: #f87171;
   --color-danger-foreground: #ffffff;
-  --color-danger-muted: rgba(239, 68, 68, 0.2);
+  --color-danger-muted: rgba(239, 68, 68, 0.15);
 
   /* ---------- Semantic: Warning ---------- */
-  --color-warning: #f59e0b;
-  --color-warning-hover: #fbbf24;
-  --color-warning-foreground: #0f172a;
-  --color-warning-muted: rgba(245, 158, 11, 0.2);
+  --color-warning: #eab308;
+  --color-warning-hover: #facc15;
+  --color-warning-foreground: #0c0c14;
+  --color-warning-muted: rgba(234, 179, 8, 0.15);
 
   /* ---------- Semantic: Info ---------- */
   --color-info: #3b82f6;
   --color-info-hover: #60a5fa;
   --color-info-foreground: #ffffff;
-  --color-info-muted: rgba(59, 130, 246, 0.2);
+  --color-info-muted: rgba(59, 130, 246, 0.15);
 
   /* ---------- Focus ring ---------- */
-  --color-ring: rgba(99, 102, 241, 0.5);
+  --color-ring: rgba(249, 115, 22, 0.5);
+}
+
+/*
+ * Light Mode Overrides
+ *
+ * Warm light variant — cream/warm white background, darker glass surfaces
+ * with warm tinting, dark text. Keeps the warm personality of the dark theme.
+ */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* ---------- Background ---------- */
+    --color-background: #f5ebe0;
+    --color-background-subtle: #ede0d4;
+
+    /* ---------- Surfaces (frosted white glass on warm bg) ---------- */
+    --color-surface: rgba(255, 255, 255, 0.45);
+    --color-surface-raised: rgba(255, 255, 255, 0.55);
+    --color-surface-overlay: rgba(255, 255, 255, 0.35);
+
+    /* ---------- Glass borders (white edge catch on warm bg) ---------- */
+    --color-border: rgba(255, 255, 255, 0.65);
+    --color-border-subtle: rgba(255, 255, 255, 0.40);
+    --color-border-strong: rgba(255, 255, 255, 0.80);
+
+    /* ---------- Foreground (text — dark on light) ---------- */
+    --color-foreground: #1c1917;
+    --color-foreground-muted: #57534e;
+    --color-foreground-subtle: #a8a29e;
+    --color-foreground-inverse: #faf7f2;
+
+    /* ---------- Primary (slightly deeper for light bg contrast) ---------- */
+    --color-primary: #ea580c;
+    --color-primary-hover: #c2410c;
+    --color-primary-active: #9a3412;
+    --color-primary-muted: rgba(234, 88, 12, 0.12);
+
+    /* ---------- Accent ---------- */
+    --color-accent: #d97706;
+    --color-accent-hover: #b45309;
+    --color-accent-active: #92400e;
+    --color-accent-muted: rgba(217, 119, 6, 0.12);
+
+    /* ---------- Semantic (deeper for light bg contrast) ---------- */
+    --color-success: #16a34a;
+    --color-success-hover: #15803d;
+    --color-success-muted: rgba(22, 163, 74, 0.12);
+
+    --color-danger: #dc2626;
+    --color-danger-hover: #b91c1c;
+    --color-danger-muted: rgba(220, 38, 38, 0.12);
+
+    --color-warning: #ca8a04;
+    --color-warning-hover: #a16207;
+    --color-warning-muted: rgba(202, 138, 4, 0.12);
+
+    --color-info: #2563eb;
+    --color-info-hover: #1d4ed8;
+    --color-info-muted: rgba(37, 99, 235, 0.12);
+
+    /* ---------- Focus ring ---------- */
+    --color-ring: rgba(234, 88, 12, 0.4);
+  }
 }

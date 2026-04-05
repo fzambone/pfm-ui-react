@@ -6,6 +6,8 @@ import App from './App';
 describe('App', () => {
   it('renders the app heading', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: /pfm/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /my dashboard/i }),
+    ).toBeInTheDocument();
   });
 });
