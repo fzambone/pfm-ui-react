@@ -1,0 +1,48 @@
+# PR Quality Gate — runs on every PR against main.
+# Steps: lint → type-check → unit/component tests with coverage → build.
+# E2E tests run only on the merge gate to keep PR feedback fast.
+# All action versions are pinned; no `latest` references.
+
+name: PR Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality-gate:
+    name: quality-gate
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Test (unit + component) with coverage
+        run: pnpm test:coverage
+
+      - name: Build
+        run: pnpm build
