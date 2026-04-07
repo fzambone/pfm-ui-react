@@ -7,7 +7,7 @@ describe('App', () => {
   it('renders the app heading', () => {
     render(<App />);
     expect(
-      screen.getByRole('heading', { name: /my dashboard/i }),
+      screen.getByRole('heading', { name: /unified dashboard/i }),
     ).toBeInTheDocument();
   });
 });

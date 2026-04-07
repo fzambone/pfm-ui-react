@@ -1,362 +1,507 @@
 function App(): React.ReactElement {
   return (
-    <div className="relative min-h-screen bg-background font-sans">
-      {/* Ambient warm glow background — sharper gradients for visible glass effect */}
-      <div className="fixed inset-0 -z-10 overflow-hidden bg-background">
-        {/* Large soft glows for ambient warmth */}
-        <div className="absolute -left-20 -top-20 h-[700px] w-[700px] rounded-full bg-primary opacity-30 blur-[130px]" />
-        <div className="absolute -bottom-20 right-[-10%] h-[800px] w-[800px] rounded-full bg-accent opacity-25 blur-[150px]" />
-        {/* Sharper, smaller blobs — these create visible frosted distortion through glass */}
-        <div className="absolute left-[30%] top-[15%] h-[250px] w-[250px] rounded-full bg-primary opacity-40 blur-[60px]" />
-        <div className="absolute right-[20%] top-[5%] h-[200px] w-[200px] rounded-full bg-accent opacity-35 blur-[50px]" />
-        <div className="absolute bottom-[15%] left-[15%] h-[200px] w-[200px] rounded-full bg-primary opacity-30 blur-[40px]" />
-        <div className="absolute bottom-[30%] right-[30%] h-[180px] w-[180px] rounded-full bg-accent opacity-25 blur-[45px]" />
-        <div className="absolute left-[55%] top-[40%] h-[150px] w-[150px] rounded-full bg-primary opacity-35 blur-[35px]" />
-        <div className="absolute left-[10%] top-[50%] h-[220px] w-[220px] rounded-full bg-accent opacity-30 blur-[55px]" />
-      </div>
-
-      <div className="flex min-h-screen">
-        {/* Sidebar */}
-        <aside className="flex w-16 flex-col items-center gap-element border-r border-border bg-surface-overlay py-6 backdrop-blur-[var(--blur-glass)]">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+    <div className="bg-mesh min-h-screen font-sans antialiased tracking-tight">
+      {/* Top Nav Bar */}
+      <nav className="fixed top-0 z-50 flex h-20 w-full items-center justify-between border-b border-border bg-glass-strong px-8 backdrop-blur-[var(--blur-glass-lg)] glass-edge">
+        <div className="text-2xl font-bold tracking-tighter text-foreground">
+          Luminous Ledger
+        </div>
+        <div className="hidden items-center gap-8 md:flex">
+          <button
+            type="button"
+            className="border-b-2 border-primary pb-1 text-foreground"
+          >
+            Dashboard
+          </button>
+          <button
+            type="button"
+            className="text-foreground-muted transition-colors duration-normal hover:text-foreground"
+          >
+            Accounts
+          </button>
+          <button
+            type="button"
+            className="text-foreground-muted transition-colors duration-normal hover:text-foreground"
+          >
+            Transactions
+          </button>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            className="rounded-pill p-2 text-foreground-muted transition-all duration-slow hover:bg-glass-hover"
+            aria-label="Notifications"
+          >
             <svg
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2}
+              strokeWidth={1.5}
               aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
               />
             </svg>
-          </div>
-          <nav
-            className="mt-section flex flex-col items-center gap-element"
-            aria-label="Main navigation"
+          </button>
+          <button
+            type="button"
+            className="rounded-pill p-2 text-foreground-muted transition-all duration-slow hover:bg-glass-hover"
+            aria-label="Settings"
           >
-            {[
-              'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4',
-              'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z',
-              'M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
-              'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z',
-            ].map((d) => (
-              <button
-                key={d.slice(0, 20)}
-                type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-foreground-muted transition-colors duration-normal hover:bg-surface-raised hover:text-foreground"
-                aria-label="Navigation item"
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </button>
+          <div className="h-10 w-10 rounded-pill border border-border-strong bg-surface-high glass-edge" />
+        </div>
+      </nav>
+
+      {/* Side Nav Bar (Pill Floating) */}
+      <aside className="glass-edge fixed bottom-4 left-4 top-24 z-50 hidden w-64 flex-col rounded-card border border-border bg-glass py-8 shadow-glass backdrop-blur-[var(--blur-glass-lg)] md:flex">
+        <div className="px-4 py-6">
+          <div className="text-lg font-black text-foreground">
+            Luminous Ledger
+          </div>
+          <div className="text-[10px] font-medium uppercase tracking-[0.05em] text-foreground-muted opacity-70">
+            The Digital Curator
+          </div>
+        </div>
+        <div className="flex-1 space-y-1 px-2">
+          <button
+            type="button"
+            className="glass-edge mx-2 my-1 flex items-center gap-3 rounded-pill bg-glass-hover px-4 py-3 text-xs font-medium uppercase tracking-[0.05em] text-foreground shadow-[0_0_15px_rgba(255,159,74,0.3)] backdrop-blur-[var(--blur-glass-sm)]"
+          >
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
+              />
+            </svg>
+            Dashboard
+          </button>
+          {['Accounts', 'Transactions'].map((item) => (
+            <button
+              key={item}
+              type="button"
+              className="mx-2 my-1 flex items-center gap-3 rounded-pill px-4 py-3 text-xs font-medium uppercase tracking-[0.05em] text-foreground-muted transition-all duration-normal hover:translate-x-1 hover:bg-glass hover:text-foreground"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                aria-hidden="true"
               >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+                />
+              </svg>
+              {item}
+            </button>
+          ))}
+        </div>
+        <div className="mb-6 px-6">
+          <button
+            type="button"
+            className="glass-edge w-full rounded-pill bg-gradient-to-r from-primary to-primary-container py-3 text-xs font-bold uppercase tracking-[0.05em] text-primary-foreground transition-transform active:scale-95"
+          >
+            Add Transaction
+          </button>
+        </div>
+        <div className="space-y-1 border-t border-border-subtle px-2 pt-4">
+          {['Support', 'Logout'].map((item) => (
+            <button
+              key={item}
+              type="button"
+              className="mx-2 my-1 flex items-center gap-3 rounded-pill px-4 py-3 text-xs font-medium uppercase tracking-[0.05em] text-foreground-muted transition-all duration-normal hover:translate-x-1 hover:bg-glass hover:text-foreground"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                />
+              </svg>
+              {item}
+            </button>
+          ))}
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="mx-auto max-w-[1600px] px-6 pb-12 pt-28 md:pl-80 md:pr-12">
+        {/* Header */}
+        <header className="mb-10">
+          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-primary">
+            Executive Summary
+          </span>
+          <h1 className="text-5xl font-black tracking-tighter text-foreground">
+            Unified Dashboard
+          </h1>
+        </header>
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
+          {/* Balance Card (Large) */}
+          <section className="glass-edge relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-card border border-border bg-glass p-8 backdrop-blur-[var(--blur-glass)] md:col-span-8">
+            <div className="absolute -mr-32 -mt-32 right-0 top-0 h-64 w-64 rounded-full bg-primary opacity-20 blur-[100px]" />
+            <div className="relative z-10">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-foreground-muted">
+                Current Liquidity
+              </p>
+              <h2 className="text-6xl font-black tracking-tighter text-foreground">
+                $142,850.
+                <span className="text-4xl opacity-40">65</span>
+              </h2>
+              <div className="mt-2 inline-flex items-center gap-1 rounded-pill border border-primary-muted bg-primary-muted px-4 py-1 text-sm font-bold text-primary">
+                +12.5%
+              </div>
+            </div>
+            <div className="relative z-10 mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
+              {[
+                { label: 'Checking', value: '$42,300' },
+                { label: 'Investment', value: '$89,120' },
+                { label: 'Savings', value: '$11,430' },
+                { label: 'Crypto', value: '$0.00' },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <p className="mb-1 text-[10px] font-bold uppercase text-foreground-muted">
+                    {stat.label}
+                  </p>
+                  <p className="text-xl font-bold text-foreground">
+                    {stat.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Quick Actions (Right Column) */}
+          <div className="flex flex-col gap-6 md:col-span-4">
+            <div className="glass-edge group flex cursor-pointer flex-col items-center justify-center rounded-card border border-border bg-surface-high p-6 text-center backdrop-blur-[var(--blur-glass)] transition-all duration-slow hover:bg-glass-hover">
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-pill bg-gradient-to-br from-tertiary to-tertiary-container shadow-glow-tertiary">
                 <svg
-                  className="h-5 w-5"
+                  className="h-8 w-8 text-tertiary-foreground"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth={1.5}
+                  strokeWidth={2}
                   aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d={d}
+                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
                   />
                 </svg>
-              </button>
-            ))}
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-page">
-          <div className="mx-auto max-w-6xl space-y-section">
-            {/* Page Header */}
-            <h1 className="text-3xl font-bold text-foreground">My Dashboard</h1>
-
-            {/* Top Stats Row */}
-            <div className="grid grid-cols-1 gap-element md:grid-cols-3">
-              {[
-                {label: 'Total Balance', value: '$789,999.56', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'},
-                {label: 'Earnings', value: '$998,999.56', icon: 'M7 11l5-5m0 0l5 5m-5-5v12'},
-                {label: 'Expenses', value: '$39,999.67', icon: 'M17 13l-5 5m0 0l-5-5m5 5V6'},
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="flex items-center gap-inline rounded-card border border-border bg-surface p-card backdrop-blur-[var(--blur-glass)]"
+              </div>
+              <p className="text-lg font-bold text-foreground">
+                Transfer Funds
+              </p>
+              <p className="mt-1 text-xs text-foreground-muted">
+                Instant peer-to-peer
+              </p>
+            </div>
+            <div className="glass-edge group flex cursor-pointer flex-col items-center justify-center rounded-card border border-border bg-surface-high p-6 text-center backdrop-blur-[var(--blur-glass)] transition-all duration-slow hover:bg-glass-hover">
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-pill bg-glass-hover">
+                <svg
+                  className="h-8 w-8 text-foreground"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-raised">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z"
+                  />
+                </svg>
+              </div>
+              <p className="text-lg font-bold text-foreground">Link Account</p>
+              <p className="mt-1 text-xs text-foreground-muted">
+                Open Banking Integration
+              </p>
+            </div>
+          </div>
+
+          {/* Performance Analytics */}
+          <section className="glass-edge rounded-card border border-border bg-glass p-8 backdrop-blur-[var(--blur-glass)] md:col-span-8">
+            <div className="mb-8 flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-foreground">
+                  Performance Analytics
+                </h3>
+                <p className="text-sm text-foreground-muted">
+                  Annual portfolio yield analysis
+                </p>
+              </div>
+              <div className="flex gap-2">
+                {['Week', 'Month', 'Year'].map((period) => (
+                  <button
+                    key={period}
+                    type="button"
+                    className={`rounded-pill px-4 py-1.5 text-xs font-bold ${
+                      period === 'Month'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-glass-hover text-foreground'
+                    }`}
+                  >
+                    {period}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="relative flex h-64 w-full items-end justify-between px-4">
+              <div className="absolute inset-0 flex items-center justify-center opacity-[0.06]">
+                <span className="text-8xl font-black tracking-tighter">
+                  DATA VIZ
+                </span>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 flex w-full justify-between px-8 py-2 text-[10px] font-bold uppercase tracking-widest text-foreground-muted">
+                {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'].map(
+                  (m) => (
+                    <span key={m}>{m}</span>
+                  ),
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Financial Goals */}
+          <section className="glass-edge rounded-card border border-border bg-glass p-8 backdrop-blur-[var(--blur-glass)] md:col-span-4">
+            <h3 className="mb-6 text-xl font-bold text-foreground">
+              Financial Goals
+            </h3>
+            <div className="space-y-8">
+              {[
+                {
+                  name: 'New Home Fund',
+                  current: '$375,000',
+                  target: '$500,000',
+                  pct: 75,
+                  color: '#ff9f4a',
+                },
+                {
+                  name: 'Tesla Model S',
+                  current: '$28,000',
+                  target: '$89,000',
+                  pct: 32,
+                  color: '#ffd709',
+                },
+                {
+                  name: 'Emergency Buffer',
+                  current: '$23,000',
+                  target: '$25,000',
+                  pct: 92,
+                  color: '#4aedef',
+                },
+              ].map((goal) => (
+                <div key={goal.name} className="flex items-center gap-6">
+                  <div className="relative flex h-16 w-16 items-center justify-center">
                     <svg
-                      className="h-5 w-5 text-foreground-muted"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1.5}
+                      className="-rotate-90 h-full w-full"
                       aria-hidden="true"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d={stat.icon} />
+                      <circle
+                        cx="32"
+                        cy="32"
+                        r="28"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.05)"
+                        strokeWidth="6"
+                      />
+                      <circle
+                        cx="32"
+                        cy="32"
+                        r="28"
+                        fill="none"
+                        stroke={goal.color}
+                        strokeWidth="6"
+                        strokeLinecap="round"
+                        strokeDasharray="175"
+                        strokeDashoffset={String(175 - (175 * goal.pct) / 100)}
+                      />
                     </svg>
+                    <span className="absolute text-[10px] font-bold text-foreground">
+                      {String(goal.pct)}%
+                    </span>
                   </div>
                   <div>
-                    <p className="text-xs text-foreground-muted">{stat.label}</p>
-                    <p className="text-lg font-semibold text-foreground">
-                      {stat.value}
+                    <p className="font-bold text-foreground">{goal.name}</p>
+                    <p className="text-xs text-foreground-muted">
+                      {goal.current} / {goal.target}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
+            <button
+              type="button"
+              className="mt-8 w-full rounded-xl border border-border py-3 text-xs font-bold uppercase tracking-widest text-foreground-muted transition-all hover:bg-glass"
+            >
+              View All Goals
+            </button>
+          </section>
 
-            <div className="grid grid-cols-1 gap-section lg:grid-cols-5">
-              {/* Left Column — 3/5 */}
-              <div className="space-y-section lg:col-span-3">
-                {/* Statistic Card */}
-                <div className="rounded-card border border-border bg-surface p-card shadow-glass backdrop-blur-[var(--blur-glass)]">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-foreground">
-                      Statistic
-                    </h2>
-                    <span className="rounded-button border border-border bg-surface-raised px-3 py-1 text-sm text-foreground-muted">
-                      All Transaction
-                    </span>
-                  </div>
-
-                  <div className="mt-section">
-                    <p className="text-sm font-medium text-foreground">
-                      Top Contributor
-                    </p>
-                    <p className="text-xs text-foreground-muted">
-                      Top half-year Earning and Expenses source
-                    </p>
-                  </div>
-
-                  {/* Mock Chart Area */}
-                  <div className="mt-element h-48 rounded-lg border border-border-subtle bg-surface-overlay p-card-sm">
-                    <div className="flex h-full items-end justify-between gap-tight px-4">
-                      {[40, 65, 85, 55, 70, 45].map((h, i) => (
-                        <div key={i} className="flex flex-1 flex-col items-center gap-tight">
-                          <div
-                            className="w-full rounded-t-md bg-primary opacity-60"
-                            style={{height: `${String(h)}%`}}
-                          />
-                          <span className="text-xs text-foreground-subtle">
-                            {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][i]}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Row — Goals & Business */}
-                <div className="grid grid-cols-1 gap-element md:grid-cols-2">
-                  {/* My Goals */}
-                  <div className="rounded-card border border-border bg-surface p-card shadow-glass-sm backdrop-blur-[var(--blur-glass)]">
-                    <h2 className="text-lg font-semibold text-foreground">
-                      My Goals
-                    </h2>
-                    <div className="mt-element grid grid-cols-2 gap-element">
-                      {[
-                        {name: 'Travel Abroad', pct: 60},
-                        {name: 'Real Estate', pct: 89},
-                      ].map((goal) => (
-                        <div
-                          key={goal.name}
-                          className="rounded-lg border border-border-subtle bg-surface-overlay p-card-sm text-center"
-                        >
-                          <p className="text-2xl font-bold text-foreground">
-                            {goal.pct}%
-                          </p>
-                          <div className="mx-auto mt-tight h-1.5 w-full overflow-hidden rounded-full bg-surface-raised">
-                            <div
-                              className="h-full rounded-full bg-primary"
-                              style={{width: `${String(goal.pct)}%`}}
-                            />
-                          </div>
-                          <p className="mt-tight text-xs text-foreground-muted">
-                            {goal.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Business */}
-                  <div className="rounded-card border border-border bg-surface p-card shadow-glass-sm backdrop-blur-[var(--blur-glass)]">
-                    <h2 className="text-lg font-semibold text-foreground">
-                      Business
-                    </h2>
-                    <div className="mt-element space-y-element">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-foreground-muted">
-                          Target Savings
-                        </span>
-                        <span className="rounded-button border border-primary-muted bg-primary-muted px-2 py-0.5 text-xs font-medium text-primary">
-                          $1,000,000.00
-                        </span>
-                      </div>
-                      <div>
-                        <span className="text-sm text-foreground-muted">
-                          Total Savings
-                        </span>
-                        <p className="text-xl font-semibold text-foreground">
-                          $700,345.98
-                        </p>
-                      </div>
-                      {/* Progress ring mock */}
-                      <div className="flex items-center justify-end">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary">
-                          <span className="text-sm font-bold text-foreground">
-                            65%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column — 2/5 */}
-              <div className="space-y-section lg:col-span-2">
-                {/* Profile Card */}
-                <div className="rounded-card border border-border bg-surface p-card shadow-glass backdrop-blur-[var(--blur-glass)]">
-                  <div className="text-center">
-                    <div className="mx-auto h-16 w-16 rounded-full bg-surface-raised" />
-                    <span className="mt-tight inline-block rounded-badge bg-surface-raised px-2 py-0.5 text-xs text-foreground-muted">
-                      Exclusive Card
-                    </span>
-                    <p className="mt-tight text-lg font-semibold text-foreground">
-                      Fernando Zambone
-                    </p>
-                  </div>
-
-                  {/* Quick Actions */}
-                  <div className="mt-element grid grid-cols-4 gap-tight">
-                    {['Transfer', 'Receive', 'Bill', 'Top up'].map(
-                      (action) => (
-                        <button
-                          key={action}
-                          type="button"
-                          className="flex flex-col items-center gap-tight rounded-lg p-2 text-foreground-muted transition-colors duration-normal hover:bg-surface-raised hover:text-foreground"
-                        >
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-overlay">
-                            <svg
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={1.5}
-                              aria-hidden="true"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 4v16m8-8H4"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-xs">{action}</span>
-                        </button>
-                      ),
-                    )}
-                  </div>
-                </div>
-
-                {/* Card Preview */}
-                <div className="overflow-hidden rounded-card bg-gradient-to-br from-primary via-accent to-primary p-card shadow-glass">
-                  <div className="flex items-start justify-between">
-                    <span className="text-sm font-medium text-primary-foreground opacity-90">
-                      PFM Card
-                    </span>
-                    <span className="text-xl font-bold text-primary-foreground">
-                      Visa
-                    </span>
-                  </div>
-                  <div className="mt-section flex items-end justify-between">
-                    <div>
-                      <p className="text-xs text-primary-foreground opacity-70">
-                        Expired
-                      </p>
-                      <p className="text-sm font-medium text-primary-foreground">
-                        09/27
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-primary-foreground opacity-70">
-                        Total Balance
-                      </p>
-                      <p className="text-xl font-bold text-primary-foreground">
-                        $74,330
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Month Transactions */}
-                <div className="rounded-card border border-border bg-surface p-card shadow-glass-sm backdrop-blur-[var(--blur-glass)]">
-                  <h2 className="text-lg font-semibold text-foreground">
-                    Month Transaction
-                  </h2>
-                  <div className="mt-element space-y-element">
-                    {[
-                      {name: 'January Salary', date: '15.01.2024', amount: '$2,000.99', positive: true},
-                      {name: 'Grocery Store', date: '14.01.2024', amount: '-$145.50', positive: false},
-                      {name: 'Freelance Work', date: '12.01.2024', amount: '$850.00', positive: true},
-                    ].map((tx) => (
-                      <div
-                        key={tx.name}
-                        className="flex items-center justify-between"
-                      >
-                        <div className="flex items-center gap-inline">
-                          <div className="h-8 w-8 rounded-full bg-surface-raised" />
-                          <div>
-                            <p className="text-sm font-medium text-foreground">
-                              {tx.name}
-                            </p>
-                            <p className="text-xs text-foreground-subtle">
-                              {tx.date}
-                            </p>
-                          </div>
-                        </div>
-                        <span
-                          className={`rounded-button px-2 py-0.5 text-sm font-medium ${
-                            tx.positive
-                              ? 'bg-success-muted text-success'
-                              : 'bg-danger-muted text-danger'
-                          }`}
-                        >
-                          {tx.amount}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <button
-                    type="button"
-                    className="mt-element flex w-full items-center justify-between text-sm text-foreground-muted transition-colors duration-normal hover:text-foreground"
-                  >
-                    See all transactions
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+          {/* Recent Artifacts */}
+          <section className="glass-edge rounded-card border border-border bg-glass p-8 backdrop-blur-[var(--blur-glass)] md:col-span-12">
+            <div className="mb-8 flex items-center justify-between">
+              <h3 className="text-xl font-bold text-foreground">
+                Recent Artifacts
+              </h3>
+              <button
+                type="button"
+                className="flex items-center gap-2 text-sm font-bold text-primary"
+              >
+                View Statement
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </button>
             </div>
-          </div>
-        </main>
-      </div>
+            <div className="space-y-1">
+              {[
+                {
+                  name: 'Apple Store Infinite Loop',
+                  category: 'Technology & Lifestyle • 2 hours ago',
+                  amount: '-$1,299.00',
+                  status: 'Pending',
+                  positive: false,
+                },
+                {
+                  name: 'Stripe Payout - Project Luminous',
+                  category: 'Business Income • Yesterday',
+                  amount: '+$8,400.00',
+                  status: 'Cleared',
+                  positive: true,
+                },
+                {
+                  name: 'The Alchemist Brasserie',
+                  category: 'Dining & Entertainment • Nov 21',
+                  amount: '-$240.50',
+                  status: 'Cleared',
+                  positive: false,
+                },
+              ].map((tx) => (
+                <div
+                  key={tx.name}
+                  className="group flex items-center justify-between rounded-2xl p-4 transition-all duration-slow hover:bg-glass"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-surface-high transition-colors group-hover:border-primary-muted">
+                      <svg
+                        className="h-5 w-5 text-foreground"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-bold text-foreground">{tx.name}</p>
+                      <p className="text-xs text-foreground-muted">
+                        {tx.category}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p
+                      className={`font-bold ${tx.positive ? 'text-tertiary' : 'text-foreground'}`}
+                    >
+                      {tx.amount}
+                    </p>
+                    <p
+                      className={`text-[10px] font-bold uppercase tracking-widest ${tx.status === 'Pending' ? 'text-danger' : 'text-foreground-muted'}`}
+                    >
+                      {tx.status}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </main>
+
+      {/* Floating FAB */}
+      <button
+        type="button"
+        className="fixed bottom-8 right-8 z-50 flex h-16 w-16 items-center justify-center rounded-pill bg-gradient-to-br from-primary to-primary-container text-primary-foreground shadow-glow-primary transition-transform active:scale-90"
+        aria-label="Add transaction"
+      >
+        <svg
+          className="h-8 w-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      </button>
     </div>
   );
 }

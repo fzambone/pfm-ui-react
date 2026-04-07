@@ -1,136 +1,102 @@
 /*
- * Color Tokens — PFM Design System
+ * Color Tokens — PFM Design System: Chromatic Refraction
  *
- * Warm, dark glassmorphism — smoky dark glass surfaces, warm orange accent,
- * ambient warm lighting. Inspired by premium fintech dashboards.
+ * "The Digital Curator" aesthetic — deep-space tonal palette with
+ * vibrant accent gradients (orange → gold → cyan) that simulate
+ * light refracting through a prism.
  *
- * Structure:
- * - @theme defines dark mode defaults (primary aesthetic)
- * - @media (prefers-color-scheme: light) overrides for light mode
- * - Both modes live in this single file per issue #15
+ * Surface Hierarchy (tonal layering, no solid borders):
+ * - Base:        surface          #0e0e0e
+ * - Secondary:   surface-low      #131313
+ * - Container:   surface-mid      #1a1a1a
+ * - Interactive:  surface-high     #262626
+ * - Bright:      surface-bright   #2c2c2c
+ *
+ * Dark mode is the PRIMARY and only mode (per DESIGN.md: "never use
+ * pure white for backgrounds"). Light mode override intentionally omitted.
  */
 
 @theme {
-  /* ---------- Background ---------- */
-  --color-background: #0c0c14;
-  --color-background-subtle: #14141f;
+  /* ---------- Background & Surfaces (Tonal Layering) ---------- */
+  --color-background: #0e0e0e;
+  --color-background-subtle: #131313;
 
-  /* ---------- Surfaces (dark smoky glass — very translucent) ---------- */
-  --color-surface: rgba(20, 20, 30, 0.30);
-  --color-surface-raised: rgba(30, 30, 45, 0.35);
-  --color-surface-overlay: rgba(15, 15, 25, 0.45);
+  --color-surface: #0e0e0e;
+  --color-surface-low: #131313;
+  --color-surface-mid: #1a1a1a;
+  --color-surface-high: #262626;
+  --color-surface-bright: #2c2c2c;
 
-  /* ---------- Glass borders (frosted edge highlights) ---------- */
-  --color-border: rgba(255, 255, 255, 0.15);
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.25);
+  /* ---------- Glass surfaces (for floating/overlay elements) ---------- */
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-hover: rgba(255, 255, 255, 0.1);
+  --color-glass-strong: rgba(0, 0, 0, 0.4);
+
+  /* ---------- Ghost Borders (the "no-line" rule — only ghost edges) ---------- */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.2);
 
   /* ---------- Foreground (text) ---------- */
-  --color-foreground: #f5f5f5;
-  --color-foreground-muted: #a1a1aa;
-  --color-foreground-subtle: #71717a;
-  --color-foreground-inverse: #0c0c14;
+  --color-foreground: #ffffff;
+  --color-foreground-muted: #adaaaa;
+  --color-foreground-subtle: #767575;
+  --color-foreground-inverse: #565555;
 
-  /* ---------- Primary (warm orange) ---------- */
-  --color-primary: #f97316;
-  --color-primary-hover: #fb923c;
-  --color-primary-active: #ea580c;
-  --color-primary-foreground: #ffffff;
-  --color-primary-muted: rgba(249, 115, 22, 0.15);
+  /* ---------- Primary (warm orange — CTA, hero moments) ---------- */
+  --color-primary: #ff9f4a;
+  --color-primary-hover: #fd8b00;
+  --color-primary-active: #ea8000;
+  --color-primary-dim: #ed8200;
+  --color-primary-container: #fd8b00;
+  --color-primary-foreground: #532a00;
+  --color-primary-muted: rgba(255, 159, 74, 0.15);
 
-  /* ---------- Accent (warm amber/gold) ---------- */
-  --color-accent: #f59e0b;
-  --color-accent-hover: #fbbf24;
-  --color-accent-active: #d97706;
-  --color-accent-foreground: #0c0c14;
-  --color-accent-muted: rgba(245, 158, 11, 0.15);
+  /* ---------- Secondary (gold/yellow — highlights, badges) ---------- */
+  --color-secondary: #ffd709;
+  --color-secondary-hover: #efc900;
+  --color-secondary-active: #efc900;
+  --color-secondary-container: #705d00;
+  --color-secondary-foreground: #5b4b00;
+  --color-secondary-muted: rgba(255, 215, 9, 0.15);
 
-  /* ---------- Semantic: Success (income/positive) ---------- */
-  --color-success: #22c55e;
-  --color-success-hover: #4ade80;
-  --color-success-foreground: #ffffff;
-  --color-success-muted: rgba(34, 197, 94, 0.15);
+  /* ---------- Tertiary (cyan/teal — positive, growth, links) ---------- */
+  --color-tertiary: #c3feff;
+  --color-tertiary-hover: #4aedef;
+  --color-tertiary-active: #3de4e7;
+  --color-tertiary-container: #5dfbfe;
+  --color-tertiary-foreground: #006668;
+  --color-tertiary-muted: rgba(195, 254, 255, 0.1);
 
-  /* ---------- Semantic: Danger (expenses/negative) ---------- */
-  --color-danger: #ef4444;
-  --color-danger-hover: #f87171;
-  --color-danger-foreground: #ffffff;
-  --color-danger-muted: rgba(239, 68, 68, 0.15);
+  /* ---------- Semantic: Success ---------- */
+  --color-success: #4aedef;
+  --color-success-hover: #3de4e7;
+  --color-success-foreground: #006668;
+  --color-success-muted: rgba(74, 237, 239, 0.15);
+
+  /* ---------- Semantic: Danger / Error ---------- */
+  --color-danger: #ff7351;
+  --color-danger-hover: #d53d18;
+  --color-danger-foreground: #450900;
+  --color-danger-container: #b92902;
+  --color-danger-muted: rgba(255, 115, 81, 0.1);
 
   /* ---------- Semantic: Warning ---------- */
-  --color-warning: #eab308;
-  --color-warning-hover: #facc15;
-  --color-warning-foreground: #0c0c14;
-  --color-warning-muted: rgba(234, 179, 8, 0.15);
+  --color-warning: #ffd709;
+  --color-warning-hover: #efc900;
+  --color-warning-foreground: #5b4b00;
+  --color-warning-muted: rgba(255, 215, 9, 0.15);
 
   /* ---------- Semantic: Info ---------- */
-  --color-info: #3b82f6;
-  --color-info-hover: #60a5fa;
-  --color-info-foreground: #ffffff;
-  --color-info-muted: rgba(59, 130, 246, 0.15);
+  --color-info: #c3feff;
+  --color-info-hover: #4aedef;
+  --color-info-foreground: #006668;
+  --color-info-muted: rgba(195, 254, 255, 0.1);
 
   /* ---------- Focus ring ---------- */
-  --color-ring: rgba(249, 115, 22, 0.5);
-}
+  --color-ring: rgba(195, 254, 255, 0.3);
 
-/*
- * Light Mode Overrides
- *
- * Warm light variant — cream/warm white background, darker glass surfaces
- * with warm tinting, dark text. Keeps the warm personality of the dark theme.
- */
-@media (prefers-color-scheme: light) {
-  :root {
-    /* ---------- Background ---------- */
-    --color-background: #f5ebe0;
-    --color-background-subtle: #ede0d4;
-
-    /* ---------- Surfaces (frosted white glass on warm bg) ---------- */
-    --color-surface: rgba(255, 255, 255, 0.45);
-    --color-surface-raised: rgba(255, 255, 255, 0.55);
-    --color-surface-overlay: rgba(255, 255, 255, 0.35);
-
-    /* ---------- Glass borders (white edge catch on warm bg) ---------- */
-    --color-border: rgba(255, 255, 255, 0.65);
-    --color-border-subtle: rgba(255, 255, 255, 0.40);
-    --color-border-strong: rgba(255, 255, 255, 0.80);
-
-    /* ---------- Foreground (text — dark on light) ---------- */
-    --color-foreground: #1c1917;
-    --color-foreground-muted: #57534e;
-    --color-foreground-subtle: #a8a29e;
-    --color-foreground-inverse: #faf7f2;
-
-    /* ---------- Primary (slightly deeper for light bg contrast) ---------- */
-    --color-primary: #ea580c;
-    --color-primary-hover: #c2410c;
-    --color-primary-active: #9a3412;
-    --color-primary-muted: rgba(234, 88, 12, 0.12);
-
-    /* ---------- Accent ---------- */
-    --color-accent: #d97706;
-    --color-accent-hover: #b45309;
-    --color-accent-active: #92400e;
-    --color-accent-muted: rgba(217, 119, 6, 0.12);
-
-    /* ---------- Semantic (deeper for light bg contrast) ---------- */
-    --color-success: #16a34a;
-    --color-success-hover: #15803d;
-    --color-success-muted: rgba(22, 163, 74, 0.12);
-
-    --color-danger: #dc2626;
-    --color-danger-hover: #b91c1c;
-    --color-danger-muted: rgba(220, 38, 38, 0.12);
-
-    --color-warning: #ca8a04;
-    --color-warning-hover: #a16207;
-    --color-warning-muted: rgba(202, 138, 4, 0.12);
-
-    --color-info: #2563eb;
-    --color-info-hover: #1d4ed8;
-    --color-info-muted: rgba(37, 99, 235, 0.12);
-
-    /* ---------- Focus ring ---------- */
-    --color-ring: rgba(234, 88, 12, 0.4);
-  }
+  /* ---------- Outline (only for accessibility fallbacks) ---------- */
+  --color-outline: #767575;
+  --color-outline-variant: #484847;
 }

@@ -1,19 +1,16 @@
 /*
- * Effects Tokens — PFM Design System (Glassmorphism)
+ * Effects Tokens — PFM Design System: Chromatic Refraction
  *
- * Backdrop blur, glass overlays, and transition durations.
- * These are the tokens that make glassmorphism work:
- * - backdrop-blur creates the frosted glass effect behind surfaces
- * - transitions define consistent animation timing
- *
- * Pronounced blur for strong frosted glass effect.
+ * Glassmorphism is achieved through heavy backdrop-blur (40px+),
+ * not surface opacity. The "Chromatic Refraction" style uses
+ * background mesh gradients that bleed through glass panels.
  */
 
 @theme {
   /* ---------- Backdrop blur ---------- */
-  --blur-glass-sm: 20px;
-  --blur-glass: 32px;
-  --blur-glass-lg: 48px;
+  --blur-glass-sm: 16px;
+  --blur-glass: 40px;
+  --blur-glass-lg: 64px;
 
   /* ---------- Transition durations ---------- */
   --duration-fast: 100ms;
