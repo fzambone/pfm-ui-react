@@ -9,7 +9,9 @@ export default defineConfig({
   reporter: process.env['CI'] ? 'github' : 'html',
 
   use: {
-    baseURL: process.env['BASE_URL'] ?? 'http://localhost:5173',
+    baseURL: process.env['CI']
+      ? 'http://localhost:4173'
+      : 'http://localhost:5173',
     trace: 'on-first-retry',
   },
 
@@ -21,8 +23,10 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm dev',
-    url: 'http://localhost:5173',
+    command: process.env['CI'] ? 'pnpm preview' : 'pnpm dev',
+    url: process.env['CI']
+      ? 'http://localhost:4173'
+      : 'http://localhost:5173',
     reuseExistingServer: !process.env['CI'],
     timeout: 120_000,
   },
