@@ -9,7 +9,8 @@
   "arrowParens": "always",
   "endOfLine": "lf",
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
-  "importOrder": ["^react", "^@?\\w", "^[./]"],
+  "importOrder": ["^react(.*)$", "^@/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"]
 }
