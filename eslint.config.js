@@ -17,13 +17,11 @@ export default tseslint.config(
       'test-results',
       '*.config.js',
       '*.config.ts',
+      '.storybook',
+      'storybook-static',
     ],
-  },
-
-  // Base JS recommended — applies to all files
-  js.configs.recommended,
-
-  // TypeScript strict with type-aware rules — src/ only
+  }, // Base JS recommended — applies to all files
+  js.configs.recommended, // TypeScript strict with type-aware rules — src/ only
   {
     files: ['src/**/*.{ts,tsx}'],
     extends: [
@@ -100,9 +98,7 @@ export default tseslint.config(
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
     },
-  },
-
-  // Test files — relax rules that conflict with test patterns
+  }, // Test files — relax rules that conflict with test patterns
   {
     files: ['src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}', 'src/test/**'],
     rules: {
@@ -110,16 +106,12 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
-  },
-
-  // E2E tests
+  }, // E2E tests
   {
     files: ['e2e/**/*.ts'],
     extends: [...tseslint.configs.recommended],
     languageOptions: { globals: { ...globals.node, ...globals.browser } },
     rules: { '@typescript-eslint/explicit-function-return-type': 'off' },
-  },
-
-  // Prettier owns all formatting
+  }, // Prettier owns all formatting
   prettierConfig,
 );
