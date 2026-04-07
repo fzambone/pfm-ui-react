@@ -1,0 +1,607 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Luminous Ledger - Accounts</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-secondary-fixed-variant': '#006668',
+              'on-primary-container': '#482600',
+              'surface-bright': '#2c2c2c',
+              'on-surface-variant': '#adaaaa',
+              'primary-container': '#fe9400',
+              'inverse-on-surface': '#565555',
+              'on-secondary-fixed': '#004748',
+              'on-primary-fixed-variant': '#542e00',
+              'on-background': '#ffffff',
+              'inverse-primary': '#8d5000',
+              'on-primary': '#562f00',
+              surface: '#0e0e0e',
+              'inverse-surface': '#fcf9f8',
+              'surface-dim': '#0e0e0e',
+              'secondary-fixed': '#5af8fb',
+              'on-error-container': '#ffd2c8',
+              'secondary-container': '#00696b',
+              'on-surface': '#ffffff',
+              'surface-variant': '#262626',
+              'on-tertiary-container': '#584500',
+              'surface-container-lowest': '#000000',
+              'secondary-fixed-dim': '#46eaed',
+              'primary-fixed': '#fe9400',
+              'primary-dim': '#ea8900',
+              'outline-variant': '#484848',
+              secondary: '#5af8fb',
+              'on-error': '#450900',
+              'tertiary-fixed-dim': '#eebe00',
+              primary: '#ffa84f',
+              tertiary: '#ffdd7c',
+              'surface-container-high': '#1f2020',
+              outline: '#767575',
+              background: '#0e0e0e',
+              error: '#ff7351',
+              'secondary-dim': '#46eaed',
+              'surface-container-highest': '#262626',
+              'on-tertiary-fixed': '#413200',
+              'on-tertiary': '#634d00',
+              'surface-container': '#191a1a',
+              'tertiary-fixed': '#fecb00',
+              'surface-tint': '#ffa84f',
+              'error-container': '#b92902',
+              'primary-fixed-dim': '#ea8900',
+              'tertiary-dim': '#eebe00',
+              'error-dim': '#d53d18',
+              'tertiary-container': '#fecb00',
+              'on-primary-fixed': '#231000',
+              'on-tertiary-fixed-variant': '#634e00',
+              'on-secondary-container': '#d9ffff',
+              'surface-container-low': '#131313',
+              'on-secondary': '#005b5d',
+            },
+            borderRadius: {
+              DEFAULT: '1rem',
+              lg: '2rem',
+              xl: '3rem',
+              full: '9999px',
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0e0e0e;
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(38, 38, 38, 0.4);
+        backdrop-filter: blur(24px);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="flex min-h-screen overflow-x-hidden">
+    <!-- Predicted Component: SideNavBar -->
+    <nav
+      class="fixed left-0 top-0 h-full flex flex-col space-y-4 py-12 px-6 z-50 bg-zinc-900/40 backdrop-blur-3xl h-[983px] m-[20px] w-72 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+    >
+      <div class="px-6 mb-12">
+        <h1
+          class="bg-gradient-to-br from-orange-400 to-orange-600 bg-clip-text text-transparent font-black text-xl"
+        >
+          Luminous Ledger
+        </h1>
+        <p
+          class="font-['Inter'] text-xs font-semibold uppercase tracking-widest text-zinc-500 mt-1"
+        >
+          Premium Curator
+        </p>
+      </div>
+      <div class="flex flex-col space-y-2 flex-grow">
+        <!-- Dashboard (Inactive) -->
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:text-white hover:bg-white/5 rounded-full transition-colors hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-icon="dashboard"
+            >dashboard</span
+          >
+          <span>Dashboard</span>
+        </a>
+        <!-- Accounts (Active - Semantic Mapping) -->
+        <a
+          class="flex items-center space-x-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-full shadow-lg shadow-orange-500/20 px-6 py-3 font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-icon="account_balance"
+            >account_balance</span
+          >
+          <span>Accounts</span>
+        </a>
+        <!-- Transactions (Inactive) -->
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:text-white hover:bg-white/5 rounded-full transition-colors hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-icon="receipt_long"
+            >receipt_long</span
+          >
+          <span>Transactions</span>
+        </a>
+        <!-- Settings (Inactive) -->
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:text-white hover:bg-white/5 rounded-full transition-colors hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-icon="settings"
+            >settings</span
+          >
+          <span>Settings</span>
+        </a>
+      </div>
+      <div class="mt-auto pt-6 border-t border-white/5">
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:text-white hover:bg-white/5 rounded-full transition-colors hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-icon="logout"
+            >logout</span
+          >
+          <span>Logout</span>
+        </a>
+      </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="ml-80 flex-grow px-12 pt-12 pb-24 relative min-h-screen">
+      <!-- Predicted Component: TopAppBar -->
+      <header
+        class="flex justify-between items-center w-full mb-12 sticky top-0 z-40 bg-zinc-950/60 backdrop-blur-2xl px-8 py-6 rounded-xl shadow-2xl shadow-black/40"
+      >
+        <div class="flex flex-col">
+          <h2
+            class="text-white font-black tracking-tighter text-2xl font-['Inter']"
+          >
+            Accounts
+          </h2>
+          <span class="text-zinc-500 font-medium text-sm"
+            >Portfolio Overview</span
+          >
+        </div>
+        <div class="flex items-center space-x-6">
+          <button
+            class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-full font-bold flex items-center space-x-2 active:scale-95 transition-transform shadow-lg shadow-primary/20"
+          >
+            <span class="material-symbols-outlined" data-icon="add_circle"
+              >add_circle</span
+            >
+            <span>Add Account</span>
+          </button>
+          <div
+            class="flex items-center space-x-4 border-l border-white/10 pl-6"
+          >
+            <button
+              class="text-zinc-500 hover:bg-white/10 transition-all duration-300 p-2 rounded-full"
+            >
+              <span class="material-symbols-outlined" data-icon="notifications"
+                >notifications</span
+              >
+            </button>
+            <div
+              class="w-10 h-10 rounded-full overflow-hidden border border-white/20"
+            >
+              <img
+                alt="User avatar"
+                class="w-full h-full object-cover"
+                data-alt="Close-up portrait of a professional man with a friendly expression in studio lighting"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiGfOvh2jl8M93jpWVQqMTS4joWhHgHCh0_CpIlX7U9EIR8uaNWCtu8tyHJoVVqVJICzg_jjxLUJB7B0B3BmP60vK4xFd28Fbd7bL4lEq2WaTgUO6VMpn4IMPTsRqiCvO135RfM1D0fNuVeEdW4RtoNpfQqgfLTKUswgiw2yaGi5QDXjNu8yx-X012sYhS2ww9FUalE49Lla8gSKhj9-BSlsC78JSwWuhMSVI_iN_PWrGEOwxpSG09_wANwD0sFjrZcI5Mi_vAWRx7"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- Bento Grid for Accounts -->
+      <section class="grid grid-cols-12 gap-6 mb-16">
+        <!-- Checking Account (Large Focus) -->
+        <div
+          class="col-span-12 lg:col-span-8 glass-card rounded-xl p-8 border border-white/5 relative overflow-hidden group"
+        >
+          <div
+            class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-[100px] group-hover:bg-primary/20 transition-all duration-700"
+          ></div>
+          <div class="relative z-10 flex flex-col h-full justify-between">
+            <div class="flex justify-between items-start mb-8">
+              <div>
+                <span
+                  class="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-1 block"
+                  >Checking</span
+                >
+                <h3 class="text-3xl font-bold tracking-tight">Main Treasury</h3>
+              </div>
+              <div class="bg-surface-container-highest p-3 rounded-xl">
+                <span
+                  class="material-symbols-outlined text-primary"
+                  data-icon="account_balance_wallet"
+                  >account_balance_wallet</span
+                >
+              </div>
+            </div>
+            <div>
+              <p class="text-zinc-500 text-sm font-medium mb-1">
+                Available Balance
+              </p>
+              <div class="flex items-baseline space-x-2">
+                <span class="text-5xl font-black tracking-tighter"
+                  >$42,940.00</span
+                >
+                <span
+                  class="text-secondary text-sm font-bold flex items-center"
+                >
+                  <span
+                    class="material-symbols-outlined text-xs mr-1"
+                    data-icon="trending_up"
+                    >trending_up</span
+                  >
+                  +2.4%
+                </span>
+              </div>
+            </div>
+            <div
+              class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center"
+            >
+              <div class="flex space-x-4">
+                <div class="flex flex-col">
+                  <span
+                    class="text-[10px] uppercase text-zinc-500 tracking-widest"
+                    >Routing</span
+                  >
+                  <span class="text-sm font-mono">**** 4492</span>
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="text-[10px] uppercase text-zinc-500 tracking-widest"
+                    >Account</span
+                  >
+                  <span class="text-sm font-mono">**** 0019</span>
+                </div>
+              </div>
+              <button
+                class="bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all"
+              >
+                Details
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Savings Account -->
+        <div
+          class="col-span-12 md:col-span-6 lg:col-span-4 glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex justify-between items-start mb-6">
+              <div class="bg-secondary/10 p-3 rounded-xl">
+                <span
+                  class="material-symbols-outlined text-secondary"
+                  data-icon="savings"
+                  >savings</span
+                >
+              </div>
+              <span
+                class="text-xs font-bold px-3 py-1 rounded-full bg-secondary/5 text-secondary border border-secondary/20"
+                >4.50% APY</span
+              >
+            </div>
+            <span
+              class="text-xs font-semibold text-secondary uppercase tracking-[0.2em] mb-1 block"
+              >Savings</span
+            >
+            <h3 class="text-xl font-bold mb-4">Dream Residence</h3>
+            <div
+              class="w-full bg-surface-container-highest h-1 rounded-full mb-2"
+            >
+              <div
+                class="bg-gradient-to-r from-secondary to-secondary-container h-full rounded-full w-[65%]"
+              ></div>
+            </div>
+            <div
+              class="flex justify-between text-[10px] font-bold text-zinc-500 uppercase tracking-widest"
+            >
+              <span>$130k saved</span>
+              <span>Goal: $200k</span>
+            </div>
+          </div>
+          <div class="mt-8">
+            <span class="text-2xl font-black tracking-tight">$130,500.22</span>
+          </div>
+        </div>
+        <!-- Investment Account -->
+        <div
+          class="col-span-12 md:col-span-6 lg:col-span-4 glass-card rounded-xl p-8 border border-white/5 group hover:bg-white/[0.05] transition-all"
+        >
+          <div class="flex justify-between items-start mb-6">
+            <div class="bg-tertiary/10 p-3 rounded-xl">
+              <span
+                class="material-symbols-outlined text-tertiary"
+                data-icon="show_chart"
+                >show_chart</span
+              >
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-zinc-400"
+                >Yield Portfolio</span
+              >
+            </div>
+          </div>
+          <span
+            class="text-xs font-semibold text-tertiary uppercase tracking-[0.2em] mb-1 block"
+            >Investment</span
+          >
+          <h3 class="text-xl font-bold mb-6">Hedge Equity Fund</h3>
+          <div class="mb-6">
+            <span class="text-3xl font-black tracking-tight">$88,412.50</span>
+            <div
+              class="flex items-center text-error text-[10px] font-bold mt-1"
+            >
+              <span
+                class="material-symbols-outlined text-xs mr-1"
+                data-icon="trending_down"
+                >trending_down</span
+              >
+              -0.85% (Today)
+            </div>
+          </div>
+          <div class="flex -space-x-2">
+            <div
+              class="w-6 h-6 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-[10px] font-bold"
+            >
+              TSLA
+            </div>
+            <div
+              class="w-6 h-6 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-[10px] font-bold"
+            >
+              AAPL
+            </div>
+            <div
+              class="w-6 h-6 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-[10px] font-bold"
+            >
+              NVDA
+            </div>
+            <div
+              class="w-6 h-6 rounded-full bg-zinc-700 border border-white/10 flex items-center justify-center text-[10px] font-bold"
+            >
+              +12
+            </div>
+          </div>
+        </div>
+        <!-- Credit Cards Section Header -->
+        <div class="col-span-12 mt-12 mb-4">
+          <h2 class="text-2xl font-black tracking-tight font-['Inter']">
+            Credit &amp; Credit Cards
+          </h2>
+        </div>
+        <!-- Credit Card Visualization: Visa Infinite -->
+        <div
+          class="col-span-12 lg:col-span-6 xl:col-span-4 aspect-[1.58/1] rounded-xl p-8 relative overflow-hidden bg-gradient-to-br from-zinc-800 to-black border border-white/10 shadow-2xl group hover:scale-[1.02] transition-all cursor-pointer"
+        >
+          <div
+            class="absolute inset-0 opacity-20 pointer-events-none"
+            style="
+              background-image: radial-gradient(
+                circle at 20% 20%,
+                #ffffff 1px,
+                transparent 1px
+              );
+              background-size: 24px 24px;
+            "
+          ></div>
+          <div class="absolute bottom-0 right-0 p-8">
+            <img
+              alt="Visa Logo"
+              class="h-8 opacity-80 mix-blend-screen"
+              data-alt="Holographic silver foil logo of a premium credit card network on a sleek black background"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyeASZxX62n768Jn4QpNVTNNc_PT0vB9FV-zcAEKQhLsmXQam1k9_xoto590Aw73Q9ovY23L6-9v8yclKfIhxxS8_6AHFWXEtFRr30linko5sRXfEai-Q5peV3pvHJzmu93c8Q7b0lD0XyJtZUeN-L05ZN4GfHvc16gt4fZIJsXSeB5XNrIXX_y0FL-l20lFbW0N6DyTH6E9vVQ2eVXBfJtWnsbXRy59vPT0LryJ2wzsetJGZRspkf8ZMOEIB2oyjejkQO5W6on3FE"
+            />
+          </div>
+          <div class="relative z-10 h-full flex flex-col justify-between">
+            <div class="flex justify-between items-start">
+              <div class="flex flex-col">
+                <span
+                  class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold"
+                  >Luminous Infinite</span
+                >
+                <span
+                  class="material-symbols-outlined text-primary text-3xl mt-2"
+                  data-icon="contactless"
+                  >contactless</span
+                >
+              </div>
+              <span class="text-xs font-mono text-zinc-400"
+                >4412 88** **** 9012</span
+              >
+            </div>
+            <div>
+              <div class="mb-4">
+                <span
+                  class="text-[10px] uppercase tracking-widest text-zinc-500 block"
+                  >Current Balance</span
+                >
+                <span class="text-2xl font-black tracking-tighter"
+                  >$1,240.85</span
+                >
+              </div>
+              <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-4">
+                <div>
+                  <span
+                    class="text-[8px] uppercase tracking-widest text-zinc-500 block"
+                    >Credit Limit</span
+                  >
+                  <span class="text-xs font-bold">$25,000</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[8px] uppercase tracking-widest text-zinc-500 block"
+                    >Closing Day</span
+                  >
+                  <span class="text-xs font-bold">12th</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[8px] uppercase tracking-widest text-zinc-500 block"
+                    >Due Date</span
+                  >
+                  <span class="text-xs font-bold text-primary">Oct 28</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Credit Card Visualization: Mastercard Elite -->
+        <div
+          class="col-span-12 lg:col-span-6 xl:col-span-4 aspect-[1.58/1] rounded-xl p-8 relative overflow-hidden bg-gradient-to-br from-secondary-container to-surface border border-white/5 shadow-2xl group hover:scale-[1.02] transition-all cursor-pointer"
+        >
+          <div
+            class="absolute -top-20 -left-20 w-64 h-64 bg-secondary/10 rounded-full blur-[80px]"
+          ></div>
+          <div class="absolute bottom-0 right-0 p-8">
+            <img
+              alt="Mastercard Logo"
+              class="h-8 opacity-80 mix-blend-screen"
+              data-alt="Two overlapping circles in orange and red represent a modern credit card issuer symbol with high contrast"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuASrHNazkBsiHxtSeoEGgsf79CrnRjnil9Eu0rULVXyd4_CwBg7ZEwAQEDUbPYwRflodDckxz38GNdv4oBBz1FijQGx0uK6knShCKOmqfDaH-j83TTygCX2oyPGXGZoHhyF4FrDzyZ8gI95AlEOjjDxnFyERb8jNcZbAo_ViymQ1E4eh1dI5dEs-GG0rC5WwWvoVOL1oChzCyU7pErz4ubdLWdf07kpQ1RHnjP3VyWlAsvaxbkIiwq8pHiVxtd_P-Jobw1y-PApLGO9"
+            />
+          </div>
+          <div class="relative z-10 h-full flex flex-col justify-between">
+            <div class="flex justify-between items-start">
+              <div class="flex flex-col">
+                <span
+                  class="text-[10px] uppercase tracking-widest text-zinc-400 font-bold"
+                  >Elite Travel</span
+                >
+                <span
+                  class="material-symbols-outlined text-secondary text-3xl mt-2"
+                  data-icon="flight_takeoff"
+                  >flight_takeoff</span
+                >
+              </div>
+              <span class="text-xs font-mono text-zinc-400"
+                >5502 11** **** 3381</span
+              >
+            </div>
+            <div>
+              <div class="mb-4">
+                <span
+                  class="text-[10px] uppercase tracking-widest text-zinc-400 block"
+                  >Current Balance</span
+                >
+                <span class="text-2xl font-black tracking-tighter"
+                  >$4,812.20</span
+                >
+              </div>
+              <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-4">
+                <div>
+                  <span
+                    class="text-[8px] uppercase tracking-widest text-zinc-400 block"
+                    >Credit Limit</span
+                  >
+                  <span class="text-xs font-bold">$15,000</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[8px] uppercase tracking-widest text-zinc-400 block"
+                    >Closing Day</span
+                  >
+                  <span class="text-xs font-bold">5th</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[8px] uppercase tracking-widest text-zinc-400 block"
+                    >Due Date</span
+                  >
+                  <span class="text-xs font-bold text-secondary">Nov 15</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Summary Card (Editorial Style) -->
+        <div
+          class="col-span-12 xl:col-span-4 glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-center"
+        >
+          <h4
+            class="text-zinc-500 text-xs font-bold uppercase tracking-[0.3em] mb-6"
+          >
+            Aggregate Insight
+          </h4>
+          <div class="space-y-6">
+            <div class="flex justify-between items-end">
+              <div>
+                <p
+                  class="text-[10px] text-zinc-400 uppercase tracking-widest mb-1"
+                >
+                  Total Liquidity
+                </p>
+                <span class="text-3xl font-black text-white">$173,440.22</span>
+              </div>
+              <span class="text-secondary text-xs font-bold"
+                >Safe to Spend</span
+              >
+            </div>
+            <div class="flex justify-between items-end">
+              <div>
+                <p
+                  class="text-[10px] text-zinc-400 uppercase tracking-widest mb-1"
+                >
+                  Debt Utilization
+                </p>
+                <span class="text-3xl font-black text-primary">15.2%</span>
+              </div>
+              <span class="text-zinc-500 text-xs font-bold">Excellent</span>
+            </div>
+            <div class="pt-6">
+              <button
+                class="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-black uppercase tracking-widest transition-all"
+              >
+                View Full Analytics
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Dynamic Background Elements -->
+      <div
+        class="fixed top-1/4 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none"
+      ></div>
+      <div
+        class="fixed bottom-1/4 -left-20 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none"
+      ></div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,685 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary-fixed': '#fd8b00',
+              'inverse-primary': '#914d00',
+              'secondary-fixed': '#ffd709',
+              'tertiary-fixed-dim': '#4aedef',
+              error: '#ff7351',
+              'outline-variant': '#484847',
+              'surface-container-high': '#20201f',
+              'on-primary': '#532a00',
+              'on-error-container': '#ffd2c8',
+              'tertiary-container': '#5dfbfe',
+              'secondary-dim': '#efc900',
+              outline: '#767575',
+              tertiary: '#c3feff',
+              'error-dim': '#d53d18',
+              'on-tertiary-fixed': '#00494a',
+              'inverse-on-surface': '#565555',
+              'surface-dim': '#0e0e0e',
+              'surface-container-highest': '#262626',
+              'tertiary-dim': '#3de4e7',
+              'on-tertiary': '#006668',
+              'inverse-surface': '#fcf9f8',
+              'on-surface-variant': '#adaaaa',
+              'on-tertiary-container': '#005d5f',
+              'on-secondary': '#5b4b00',
+              'surface-container': '#1a1a1a',
+              'surface-bright': '#2c2c2c',
+              'secondary-fixed-dim': '#efc900',
+              primary: '#ff9f4a',
+              'on-secondary-fixed-variant': '#665500',
+              'on-error': '#450900',
+              'surface-container-low': '#131313',
+              'surface-container-lowest': '#000000',
+              'on-surface': '#ffffff',
+              'primary-container': '#fd8b00',
+              'on-secondary-fixed': '#453900',
+              'primary-fixed-dim': '#ea8000',
+              'tertiary-fixed': '#5dfbfe',
+              'surface-tint': '#ff9f4a',
+              'on-secondary-container': '#fff7e6',
+              'primary-dim': '#ed8200',
+              'on-tertiary-fixed-variant': '#00686a',
+              background: '#0e0e0e',
+              'secondary-container': '#705d00',
+              'error-container': '#b92902',
+              'on-primary-fixed-variant': '#512800',
+              surface: '#0e0e0e',
+              'on-primary-container': '#442100',
+              secondary: '#ffd709',
+              'on-background': '#ffffff',
+              'surface-variant': '#262626',
+              'on-primary-fixed': '#180800',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .glass-edge {
+        box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.15);
+      }
+      body {
+        background-color: #0e0e0e;
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+      .bg-mesh {
+        background-image:
+          radial-gradient(
+            at 0% 0%,
+            rgba(253, 139, 0, 0.15) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 100% 100%,
+            rgba(195, 254, 255, 0.1) 0px,
+            transparent 50%
+          );
+      }
+    </style>
+  </head>
+  <body class="bg-mesh min-h-screen">
+    <!-- TopNavBar (Fixed) -->
+    <nav
+      class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-3xl border-b border-white/10 glass-edge flex justify-between items-center px-8 h-20 w-full font-['Inter'] antialiased tracking-tight"
+    >
+      <div class="text-2xl font-bold tracking-tighter text-white">
+        Luminous Ledger
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a class="text-white border-b-2 border-[#ff9f4a] pb-1" href="#"
+          >Dashboard</a
+        >
+        <a class="text-[#adaaaa] hover:text-white transition-colors" href="#"
+          >Accounts</a
+        >
+        <a class="text-[#adaaaa] hover:text-white transition-colors" href="#"
+          >Transactions</a
+        >
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="p-2 text-[#adaaaa] hover:bg-white/5 transition-all duration-300 rounded-full"
+        >
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button
+          class="p-2 text-[#adaaaa] hover:bg-white/5 transition-all duration-300 rounded-full"
+        >
+          <span class="material-symbols-outlined">settings</span>
+        </button>
+        <img
+          alt="User profile"
+          class="w-10 h-10 rounded-full border border-white/20 glass-edge"
+          data-alt="close-up portrait of a professional woman with a minimalist background, soft warm lighting"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8jG_j5kdY1TGhHp-DK6A7btRPmNB6pCRPw67urY9ea8akxAE8o08Xh2v6US0GrOPyrR4-_pD6QKnYsjVgP5dhVavQuunN8yYwT-YbnxwFQE6b27411P9ttV5yktkCJwcPWuCZ8-6yFBTbFRZ2_Wu1YFkRaM9ZTuTVmfV5Vm6IHs44SzvIXFGo6K9gdbdrZkwAQNLga4NFfcFo96WT50u0Fi-Srohq8Ah7KLhVAR8eAO2KvboHq_t6A2O1zB3qr0T6ozbc1evjSCeJ"
+        />
+      </div>
+    </nav>
+    <!-- SideNavBar (Pill Floating) -->
+    <aside
+      class="hidden md:flex fixed left-4 top-24 bottom-4 w-64 rounded-[2rem] z-50 bg-white/5 backdrop-blur-3xl border border-white/10 glass-edge shadow-[20px_20px_50px_rgba(0,0,0,0.5)] flex flex-col py-8 gap-2 font-['Inter'] uppercase tracking-[0.05em] text-xs font-medium"
+    >
+      <div class="px-4 py-6">
+        <div class="text-lg font-black text-white">Luminous Ledger</div>
+        <div class="text-[10px] text-on-surface-variant opacity-70">
+          The Digital Curator
+        </div>
+      </div>
+      <div class="flex-1 px-2 space-y-1">
+        <a
+          class="bg-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,159,74,0.3)] text-white rounded-full mx-2 my-1 flex items-center gap-3 px-4 py-3 hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a
+          class="text-[#adaaaa] hover:text-white mx-2 my-1 flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">account_balance_wallet</span>
+          <span>Accounts</span>
+        </a>
+        <a
+          class="text-[#adaaaa] hover:text-white mx-2 my-1 flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">receipt_long</span>
+          <span>Transactions</span>
+        </a>
+      </div>
+      <div class="px-6 mb-6">
+        <button
+          class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-full active:scale-95 transition-transform glass-edge"
+        >
+          Add Transaction
+        </button>
+      </div>
+      <div class="px-2 border-t border-white/5 pt-4">
+        <a
+          class="text-[#adaaaa] hover:text-white mx-2 my-1 flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">help</span>
+          <span>Support</span>
+        </a>
+        <a
+          class="text-[#adaaaa] hover:text-white mx-2 my-1 flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">logout</span>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    <!-- Main Content Canvas -->
+    <main class="pt-28 pb-12 px-6 md:pl-80 md:pr-12 max-w-[1600px] mx-auto">
+      <!-- Header Section -->
+      <header
+        class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6"
+      >
+        <div>
+          <span
+            class="text-xs font-bold tracking-[0.2em] text-primary uppercase mb-2 block"
+            >Executive Summary</span
+          >
+          <h1 class="text-5xl font-black tracking-tighter text-white">
+            Unified Dashboard
+          </h1>
+        </div>
+        <div class="flex gap-4">
+          <div
+            class="bg-surface-container-low backdrop-blur-xl border border-white/10 glass-edge rounded-xl px-4 py-2 flex items-center gap-3"
+          >
+            <span class="material-symbols-outlined text-secondary"
+              >calendar_today</span
+            >
+            <span class="text-sm font-medium text-on-surface"
+              >Oct 24, 2023 - Nov 23, 2023</span
+            >
+          </div>
+        </div>
+      </header>
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Total Balance Card (Large Highlight) -->
+        <section
+          class="md:col-span-8 bg-white/5 backdrop-blur-[40px] border border-white/10 glass-edge rounded-[2rem] p-8 relative overflow-hidden flex flex-col justify-between min-h-[340px]"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] -mr-32 -mt-32"
+          ></div>
+          <div class="relative z-10">
+            <div class="flex justify-between items-start">
+              <div>
+                <p
+                  class="text-xs font-bold tracking-[0.15em] text-on-surface-variant uppercase mb-1"
+                >
+                  Current Liquidity
+                </p>
+                <h2 class="text-6xl font-black tracking-tighter text-white">
+                  $142,850.<span class="opacity-40 text-4xl">65</span>
+                </h2>
+              </div>
+              <div
+                class="bg-primary/10 text-primary border border-primary/20 rounded-full px-4 py-1 flex items-center gap-1 text-sm font-bold"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >trending_up</span
+                >
+                +12.5%
+              </div>
+            </div>
+          </div>
+          <div
+            class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
+          >
+            <div>
+              <p
+                class="text-[10px] font-bold text-on-surface-variant uppercase mb-1"
+              >
+                Checking
+              </p>
+              <p class="text-xl font-bold text-white">$42,300</p>
+            </div>
+            <div>
+              <p
+                class="text-[10px] font-bold text-on-surface-variant uppercase mb-1"
+              >
+                Investment
+              </p>
+              <p class="text-xl font-bold text-white">$89,120</p>
+            </div>
+            <div>
+              <p
+                class="text-[10px] font-bold text-on-surface-variant uppercase mb-1"
+              >
+                Savings
+              </p>
+              <p class="text-xl font-bold text-white">$11,430</p>
+            </div>
+            <div>
+              <p
+                class="text-[10px] font-bold text-on-surface-variant uppercase mb-1"
+              >
+                Crypto
+              </p>
+              <p class="text-xl font-bold text-white">$0.00</p>
+            </div>
+          </div>
+          <!-- Abstract Decorative Lines (Visualizing "Refraction") -->
+          <div
+            class="absolute bottom-0 left-0 w-full h-24 opacity-20 pointer-events-none"
+          >
+            <svg class="w-full h-full preserve-3d" viewbox="0 0 800 100">
+              <path
+                d="M0 80 Q 200 20 400 80 T 800 50"
+                fill="none"
+                stroke="#ff9f4a"
+                stroke-width="2"
+              ></path>
+              <path
+                d="M0 60 Q 250 10 500 60 T 800 40"
+                fill="none"
+                stroke="#c3feff"
+                stroke-width="1"
+              ></path>
+            </svg>
+          </div>
+        </section>
+        <!-- Quick Action Cards (Stacked Right) -->
+        <div class="md:col-span-4 flex flex-col gap-6">
+          <div
+            class="bg-surface-container-highest backdrop-blur-2xl border border-white/10 glass-edge rounded-[2rem] p-6 flex flex-col justify-center items-center text-center group cursor-pointer hover:bg-white/10 transition-all duration-300"
+          >
+            <div
+              class="w-16 h-16 rounded-full bg-gradient-to-br from-tertiary to-tertiary-container flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(195,254,255,0.3)]"
+            >
+              <span class="material-symbols-outlined text-on-tertiary text-3xl"
+                >send</span
+              >
+            </div>
+            <p class="text-lg font-bold text-white">Transfer Funds</p>
+            <p class="text-xs text-on-surface-variant mt-1">
+              Instant peer-to-peer
+            </p>
+          </div>
+          <div
+            class="bg-surface-container-highest backdrop-blur-2xl border border-white/10 glass-edge rounded-[2rem] p-6 flex flex-col justify-center items-center text-center group cursor-pointer hover:bg-white/10 transition-all duration-300"
+          >
+            <div
+              class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-4"
+            >
+              <span class="material-symbols-outlined text-white text-3xl"
+                >add_card</span
+              >
+            </div>
+            <p class="text-lg font-bold text-white">Link Account</p>
+            <p class="text-xs text-on-surface-variant mt-1">
+              Open Banking Integration
+            </p>
+          </div>
+        </div>
+        <!-- Performance Analytics (Full Width or Large Section) -->
+        <section
+          class="md:col-span-12 lg:col-span-8 bg-white/5 backdrop-blur-[40px] border border-white/10 glass-edge rounded-[2rem] p-8"
+        >
+          <div class="flex justify-between items-center mb-8">
+            <div>
+              <h3 class="text-xl font-bold text-white">
+                Performance Analytics
+              </h3>
+              <p class="text-sm text-on-surface-variant">
+                Annual portfolio yield analysis
+              </p>
+            </div>
+            <div class="flex gap-2">
+              <button
+                class="px-4 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white"
+              >
+                Week
+              </button>
+              <button
+                class="px-4 py-1.5 rounded-full bg-primary text-xs font-bold text-on-primary"
+              >
+                Month
+              </button>
+              <button
+                class="px-4 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white"
+              >
+                Year
+              </button>
+            </div>
+          </div>
+          <!-- Performance Chart Placeholder -->
+          <div class="h-64 w-full relative flex items-end justify-between px-4">
+            <div
+              class="absolute inset-0 flex items-center justify-center opacity-10"
+            >
+              <span class="text-8xl font-black tracking-tighter">DATA VIZ</span>
+            </div>
+            <!-- Refraction Wave Chart Graphic -->
+            <div
+              class="absolute inset-x-0 bottom-0 h-48 overflow-hidden pointer-events-none"
+            >
+              <svg
+                class="w-full h-full"
+                preserveaspectratio="none"
+                viewbox="0 0 1000 200"
+              >
+                <defs>
+                  <lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+                    <stop
+                      offset="0%"
+                      style="
+                        stop-color: rgba(253, 139, 0, 0.4);
+                        stop-opacity: 1;
+                      "
+                    ></stop>
+                    <stop
+                      offset="100%"
+                      style="stop-color: rgba(253, 139, 0, 0); stop-opacity: 0"
+                    ></stop>
+                  </lineargradient>
+                </defs>
+                <path
+                  d="M0,150 C150,100 250,180 400,120 C550,60 750,160 1000,80 L1000,200 L0,200 Z"
+                  fill="url(#grad1)"
+                ></path>
+                <path
+                  d="M0,150 C150,100 250,180 400,120 C550,60 750,160 1000,80"
+                  fill="none"
+                  stroke="#ff9f4a"
+                  stroke-linecap="round"
+                  stroke-width="4"
+                ></path>
+                <path
+                  d="M0,180 C150,150 300,100 500,150 C700,200 850,120 1000,150"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-dasharray="8 8"
+                  stroke-opacity="0.5"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </div>
+            <!-- Month Indicators -->
+            <div
+              class="flex justify-between w-full absolute bottom-0 left-0 right-0 px-8 py-2 text-[10px] text-on-surface-variant font-bold uppercase tracking-widest"
+            >
+              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span
+              ><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+            </div>
+          </div>
+        </section>
+        <!-- My Goals Progress Rings -->
+        <section
+          class="md:col-span-12 lg:col-span-4 bg-white/5 backdrop-blur-[40px] border border-white/10 glass-edge rounded-[2rem] p-8"
+        >
+          <h3 class="text-xl font-bold text-white mb-6">Financial Goals</h3>
+          <div class="space-y-8">
+            <!-- Progress Item 1 -->
+            <div class="flex items-center gap-6">
+              <div class="relative w-16 h-16 flex items-center justify-center">
+                <svg class="w-full h-full -rotate-90">
+                  <circle
+                    cx="32"
+                    cy="32"
+                    fill="none"
+                    r="28"
+                    stroke="rgba(255,255,255,0.05)"
+                    stroke-width="6"
+                  ></circle>
+                  <circle
+                    cx="32"
+                    cy="32"
+                    fill="none"
+                    r="28"
+                    stroke="#ff9f4a"
+                    stroke-dasharray="175"
+                    stroke-dashoffset="40"
+                    stroke-linecap="round"
+                    stroke-width="6"
+                  ></circle>
+                </svg>
+                <span class="absolute text-[10px] font-bold text-white"
+                  >75%</span
+                >
+              </div>
+              <div>
+                <p class="font-bold text-white">New Home Fund</p>
+                <p class="text-xs text-on-surface-variant">
+                  $375,000 / $500,000
+                </p>
+              </div>
+            </div>
+            <!-- Progress Item 2 -->
+            <div class="flex items-center gap-6">
+              <div class="relative w-16 h-16 flex items-center justify-center">
+                <svg class="w-full h-full -rotate-90">
+                  <circle
+                    cx="32"
+                    cy="32"
+                    fill="none"
+                    r="28"
+                    stroke="rgba(255,255,255,0.05)"
+                    stroke-width="6"
+                  ></circle>
+                  <circle
+                    cx="32"
+                    cy="32"
+                    fill="none"
+                    r="28"
+                    stroke="#ffd709"
+                    stroke-dasharray="175"
+                    stroke-dashoffset="120"
+                    stroke-linecap="round"
+                    stroke-width="6"
+                  ></circle>
+                </svg>
+                <span class="absolute text-[10px] font-bold text-white"
+                  >32%</span
+                >
+              </div>
+              <div>
+                <p class="font-bold text-white">Tesla Model S</p>
+                <p class="text-xs text-on-surface-variant">$28,000 / $89,000</p>
+              </div>
+            </div>
+            <!-- Progress Item 3 -->
+            <div class="flex items-center gap-6">
+              <div class="relative w-16 h-16 flex items-center justify-center">
+                <svg class="w-full h-full -rotate-90">
+                  <circle
+                    cx="32"
+                    cy="32"
+                    fill="none"
+                    r="28"
+                    stroke="rgba(255,255,255,0.05)"
+                    stroke-width="6"
+                  ></circle>
+                  <circle
+                    cx="32"
+                    cy="32"
+                    fill="none"
+                    r="28"
+                    stroke="#4aedef"
+                    stroke-dasharray="175"
+                    stroke-dashoffset="15"
+                    stroke-linecap="round"
+                    stroke-width="6"
+                  ></circle>
+                </svg>
+                <span class="absolute text-[10px] font-bold text-white"
+                  >92%</span
+                >
+              </div>
+              <div>
+                <p class="font-bold text-white">Emergency Buffer</p>
+                <p class="text-xs text-on-surface-variant">$23,000 / $25,000</p>
+              </div>
+            </div>
+          </div>
+          <button
+            class="w-full mt-8 py-3 rounded-xl border border-white/10 text-on-surface-variant text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-all"
+          >
+            View All Goals
+          </button>
+        </section>
+        <!-- Month Transactions List -->
+        <section
+          class="md:col-span-12 bg-white/5 backdrop-blur-[40px] border border-white/10 glass-edge rounded-[2rem] p-8"
+        >
+          <div class="flex justify-between items-center mb-8">
+            <h3 class="text-xl font-bold text-white">Recent Artifacts</h3>
+            <button
+              class="text-sm font-bold text-primary flex items-center gap-2"
+            >
+              View Statement
+              <span class="material-symbols-outlined text-sm"
+                >arrow_forward</span
+              >
+            </button>
+          </div>
+          <div class="space-y-1">
+            <!-- Transaction 1 -->
+            <div
+              class="flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 transition-all duration-300 group"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-surface-container-highest border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors"
+                >
+                  <span class="material-symbols-outlined text-white"
+                    >shopping_bag</span
+                  >
+                </div>
+                <div>
+                  <p class="font-bold text-white">Apple Store Infinite Loop</p>
+                  <p class="text-xs text-on-surface-variant">
+                    Technology &amp; Lifestyle • 2 hours ago
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-white">-$1,299.00</p>
+                <p class="text-[10px] text-error font-bold uppercase">
+                  Pending
+                </p>
+              </div>
+            </div>
+            <!-- Transaction 2 -->
+            <div
+              class="flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 transition-all duration-300 group"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-surface-container-highest border border-white/10 flex items-center justify-center group-hover:border-tertiary/50 transition-colors"
+                >
+                  <span class="material-symbols-outlined text-white"
+                    >payments</span
+                  >
+                </div>
+                <div>
+                  <p class="font-bold text-white">
+                    Stripe Payout - Project Luminous
+                  </p>
+                  <p class="text-xs text-on-surface-variant">
+                    Business Income • Yesterday
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-tertiary">+$8,400.00</p>
+                <p
+                  class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest"
+                >
+                  Cleared
+                </p>
+              </div>
+            </div>
+            <!-- Transaction 3 -->
+            <div
+              class="flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 transition-all duration-300 group"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-surface-container-highest border border-white/10 flex items-center justify-center group-hover:border-secondary/50 transition-colors"
+                >
+                  <span class="material-symbols-outlined text-white"
+                    >restaurant</span
+                  >
+                </div>
+                <div>
+                  <p class="font-bold text-white">The Alchemist Brasserie</p>
+                  <p class="text-xs text-on-surface-variant">
+                    Dining &amp; Entertainment • Nov 21
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-white">-$240.50</p>
+                <p
+                  class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest"
+                >
+                  Cleared
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- Contextual Floating FAB -->
+    <button
+      class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full shadow-[0_10px_30px_rgba(253,139,0,0.4)] flex items-center justify-center z-50 active:scale-90 transition-transform"
+    >
+      <span class="material-symbols-outlined text-3xl">add</span>
+    </button>
+  </body>
+</html>
