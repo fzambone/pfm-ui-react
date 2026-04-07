@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router';
 
+import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute';
+import { PublicRoute } from '@/features/auth/components/PublicRoute';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { HouseholdsPage } from '@/pages/HouseholdsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -10,41 +12,52 @@ import { ErrorBoundary } from '@/shared/components/ErrorBoundary';
 /*
  * App — route configuration with layout wrapper and error boundaries.
  *
- * Each feature route is wrapped in its own ErrorBoundary so a crash
- * in one feature (e.g., Households) doesn't take down the sidebar
- * or other features. The layout shell remains functional.
+ * ProtectedRoute guards all internal pages — unauthenticated users are
+ * redirected to /login before reaching any child route.
+ *
+ * PublicRoute guards /login — authenticated users are redirected to /dashboard
+ * so they cannot reach the login page while already signed in.
  */
 function App(): React.ReactElement {
   return (
     <Routes>
-      <Route element={<AppLayout />}>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ErrorBoundary>
-              <DashboardPage />
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/households"
-          element={
-            <ErrorBoundary>
-              <HouseholdsPage />
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <ErrorBoundary>
-              <SettingsPage />
-            </ErrorBoundary>
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
+      {/* Public routes — accessible only when unauthenticated */}
+      <Route element={<PublicRoute />}>
+        <Route path="/login" element={<p>Login coming soon</p>} />
       </Route>
+
+      {/* Protected routes — require authentication */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ErrorBoundary>
+                <DashboardPage />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/households"
+            element={
+              <ErrorBoundary>
+                <HouseholdsPage />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ErrorBoundary>
+                <SettingsPage />
+              </ErrorBoundary>
+            }
+          />
+        </Route>
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
