@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+# Claude session artifacts
+.claude/plans/
 
 # Editor directories and files
 .vscode/*
