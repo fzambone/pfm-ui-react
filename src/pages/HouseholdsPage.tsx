@@ -1,12 +1,19 @@
+import { PageContent } from '@/shared/components/PageContent';
+import { PageHeader } from '@/shared/components/PageHeader';
 import { Text } from '@/shared/components/Text';
 
 export function HouseholdsPage(): React.ReactElement {
   return (
-    <div>
-      <Text variant="h1">Households</Text>
-      <Text variant="bodySmall" className="mt-2">
-        Manage your shared financial spaces.
-      </Text>
-    </div>
+    <>
+      <PageHeader
+        title="Households"
+        subtitle="Manage your shared financial spaces."
+      />
+      <PageContent>
+        <Text variant="bodySmall">
+          Household management will appear here in a future milestone.
+        </Text>
+      </PageContent>
+    </>
   );
 }
