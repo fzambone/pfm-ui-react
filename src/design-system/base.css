@@ -1,40 +1,24 @@
 /*
- * Base Styles — PFM Design System
+ * Base Styles — PFM Design System: Chromatic Refraction
  *
  * Extends Tailwind's preflight with token-aware global defaults.
- * Everything here references design tokens so it adapts to light/dark mode.
- *
- * Rules:
- * - No component-level styles — only global resets and defaults
- * - No utility classes — those belong in Tailwind
- * - No @apply — defeats utility-first purpose
- * - All values from design tokens (CSS custom properties)
+ * The "Digital Curator" aesthetic: deep-space base, antialiased text,
+ * no smooth scrolling by default, reduced-motion safe.
  */
 
-/*
- * Focus ring — consistent, token-based, visible in both modes.
- * Uses :focus-visible so mouse clicks don't show the ring,
- * but keyboard Tab navigation does.
- */
+/* Focus ring — uses tertiary (cyan) glow for high visibility on dark bg */
 :focus-visible {
   outline: 2px solid var(--color-ring);
   outline-offset: 2px;
 }
 
-/*
- * Text selection — warm highlight matching the primary palette.
- * Adapts to light/dark via token overrides in colors.css.
- */
+/* Text selection — warm primary highlight */
 ::selection {
   background-color: var(--color-primary-muted);
   color: var(--color-foreground);
 }
 
-/*
- * Body defaults — set the base font, background, and text color
- * from design tokens. Tailwind's preflight sets box-sizing and margins,
- * but doesn't set these token-based values.
- */
+/* Body defaults */
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
@@ -42,13 +26,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-/*
- * Scrollbar — no smooth scrolling by default.
- * Smooth scrolling is a vestibular disorder trigger (WCAG 2.1 SC 2.3.3).
- * Users who want it can enable via prefers-reduced-motion: no-preference.
- */
+/* No smooth scroll by default (vestibular accessibility) */
 html {
   scroll-behavior: auto;
 }
@@ -59,11 +40,7 @@ html {
   }
 }
 
-/*
- * Reduced motion — disable transitions and animations for users
- * who prefer reduced motion. Individual components can override
- * with careful, essential-only animations.
- */
+/* Reduced motion — kill animations/transitions */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -73,4 +50,24 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/*
+ * Background mesh — the signature Chromatic Refraction gradient.
+ * Primary (orange) top-left, tertiary (cyan) bottom-right.
+ * This bleeds through glass panels via backdrop-blur.
+ */
+.bg-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(253, 139, 0, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(195, 254, 255, 0.1) 0px, transparent 50%);
+}
+
+/*
+ * Ghost border — the signature glass edge highlight.
+ * Simulates light catching the top-left edge of a frosted surface.
+ * Apply as a utility class alongside glass panels.
+ */
+.glass-edge {
+  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.15);
 }

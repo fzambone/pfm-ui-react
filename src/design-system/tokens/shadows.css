@@ -1,61 +1,34 @@
 /*
- * Shadow Tokens — PFM Design System
+ * Shadow Tokens — PFM Design System: Chromatic Refraction
  *
- * Layered shadow system for glassmorphism depth.
- * Glass shadows include inner glow (inset highlights) to simulate
- * light catching the edge of a frosted glass surface.
+ * Depth through tonal layering, not structural shadows.
+ * Ambient shadows are ultra-diffused with tinted black.
+ * The "Ghost Border" inset highlight simulates light catching a glass edge.
  */
 
 @theme {
-  /* ---------- Standard elevation shadows (dark mode default) ---------- */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md:
-    0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg:
-    0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
-  --shadow-xl:
-    0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  /* ---------- Ambient shadows (ultra-diffused, never pure black) ---------- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 30px 60px rgba(0, 0, 0, 0.6);
 
-  /* ---------- Glass-specific shadows (dark mode) ---------- */
+  /* ---------- Glass shadows (with ghost border inset highlight) ---------- */
   --shadow-glass:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10),
-    inset 0 0 20px rgba(255, 255, 255, 0.02);
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 1px 1px 0px 0px rgba(255, 255, 255, 0.15);
   --shadow-glass-sm:
-    0 4px 16px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 1px 1px 0px 0px rgba(255, 255, 255, 0.1);
   --shadow-glass-lg:
-    0 16px 48px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 0 30px rgba(255, 255, 255, 0.03);
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    inset 1px 1px 0px 0px rgba(255, 255, 255, 0.18);
 
-  /* ---------- Focus shadow (combined with ring) ---------- */
+  /* ---------- Glow shadows (for gradient CTAs and accent elements) ---------- */
+  --shadow-glow-primary: 0 10px 30px rgba(253, 139, 0, 0.4);
+  --shadow-glow-tertiary: 0 0 30px rgba(195, 254, 255, 0.3);
+  --shadow-glow-secondary: 0 0 15px rgba(255, 215, 9, 0.3);
+
+  /* ---------- Focus shadow ---------- */
   --shadow-ring: 0 0 0 3px var(--color-ring);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    /* ---------- Standard elevation shadows (light mode) ---------- */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-md:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-    --shadow-lg:
-      0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
-    --shadow-xl:
-      0 20px 25px -5px rgba(0, 0, 0, 0.12),
-      0 8px 10px -6px rgba(0, 0, 0, 0.06);
-
-    /* ---------- Glass-specific shadows (light mode) ---------- */
-    --shadow-glass:
-      0 8px 32px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      inset 0 0 20px rgba(255, 255, 255, 0.15);
-    --shadow-glass-sm:
-      0 4px 16px rgba(0, 0, 0, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    --shadow-glass-lg:
-      0 16px 48px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95),
-      inset 0 0 30px rgba(255, 255, 255, 0.20);
-  }
 }
