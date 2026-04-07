@@ -1,0 +1,76 @@
+/*
+ * Base Styles — PFM Design System
+ *
+ * Extends Tailwind's preflight with token-aware global defaults.
+ * Everything here references design tokens so it adapts to light/dark mode.
+ *
+ * Rules:
+ * - No component-level styles — only global resets and defaults
+ * - No utility classes — those belong in Tailwind
+ * - No @apply — defeats utility-first purpose
+ * - All values from design tokens (CSS custom properties)
+ */
+
+/*
+ * Focus ring — consistent, token-based, visible in both modes.
+ * Uses :focus-visible so mouse clicks don't show the ring,
+ * but keyboard Tab navigation does.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/*
+ * Text selection — warm highlight matching the primary palette.
+ * Adapts to light/dark via token overrides in colors.css.
+ */
+::selection {
+  background-color: var(--color-primary-muted);
+  color: var(--color-foreground);
+}
+
+/*
+ * Body defaults — set the base font, background, and text color
+ * from design tokens. Tailwind's preflight sets box-sizing and margins,
+ * but doesn't set these token-based values.
+ */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/*
+ * Scrollbar — no smooth scrolling by default.
+ * Smooth scrolling is a vestibular disorder trigger (WCAG 2.1 SC 2.3.3).
+ * Users who want it can enable via prefers-reduced-motion: no-preference.
+ */
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Reduced motion — disable transitions and animations for users
+ * who prefer reduced motion. Individual components can override
+ * with careful, essential-only animations.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

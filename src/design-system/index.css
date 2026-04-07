@@ -19,3 +19,6 @@
 @import './tokens/radii.css';
 @import './tokens/shadows.css';
 @import './tokens/effects.css';
+
+/* Base styles — must come after tokens so it can reference them */
+@import './base.css';
