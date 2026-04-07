@@ -1,0 +1,613 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Luminous Ledger - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-secondary-fixed-variant': '#006668',
+              'on-primary-container': '#482600',
+              'surface-bright': '#2c2c2c',
+              'on-surface-variant': '#adaaaa',
+              'primary-container': '#fe9400',
+              'inverse-on-surface': '#565555',
+              'on-secondary-fixed': '#004748',
+              'on-primary-fixed-variant': '#542e00',
+              'on-background': '#ffffff',
+              'inverse-primary': '#8d5000',
+              'on-primary': '#562f00',
+              surface: '#0e0e0e',
+              'inverse-surface': '#fcf9f8',
+              'surface-dim': '#0e0e0e',
+              'secondary-fixed': '#5af8fb',
+              'on-error-container': '#ffd2c8',
+              'secondary-container': '#00696b',
+              'on-surface': '#ffffff',
+              'surface-variant': '#262626',
+              'on-tertiary-container': '#584500',
+              'surface-container-lowest': '#000000',
+              'secondary-fixed-dim': '#46eaed',
+              'primary-fixed': '#fe9400',
+              'primary-dim': '#ea8900',
+              'outline-variant': '#484848',
+              secondary: '#5af8fb',
+              'on-error': '#450900',
+              'tertiary-fixed-dim': '#eebe00',
+              primary: '#ffa84f',
+              tertiary: '#ffdd7c',
+              'surface-container-high': '#1f2020',
+              outline: '#767575',
+              background: '#0e0e0e',
+              error: '#ff7351',
+              'secondary-dim': '#46eaed',
+              'surface-container-highest': '#262626',
+              'on-tertiary-fixed': '#413200',
+              'on-tertiary': '#634d00',
+              'surface-container': '#191a1a',
+              'tertiary-fixed': '#fecb00',
+              'surface-tint': '#ffa84f',
+              'error-container': '#b92902',
+              'primary-fixed-dim': '#ea8900',
+              'tertiary-dim': '#eebe00',
+              'error-dim': '#d53d18',
+              'tertiary-container': '#fecb00',
+              'on-primary-fixed': '#231000',
+              'on-tertiary-fixed-variant': '#634e00',
+              'on-secondary-container': '#d9ffff',
+              'surface-container-low': '#131313',
+              'on-secondary': '#005b5d',
+            },
+            borderRadius: {
+              DEFAULT: '1rem',
+              lg: '2rem',
+              xl: '3rem',
+              full: '9999px',
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0e0e0e;
+        color: white;
+        -webkit-font-smoothing: antialiased;
+      }
+      .glass-panel {
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-on-surface min-h-screen selection:bg-primary selection:text-on-primary"
+  >
+    <!-- Sidebar Navigation -->
+    <nav
+      class="fixed left-0 top-0 h-full flex flex-col space-y-4 py-12 px-6 z-50 bg-zinc-900/40 backdrop-blur-3xl h-[983px] m-[20px] w-72 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+    >
+      <div class="px-6 mb-8">
+        <h1
+          class="bg-gradient-to-br from-orange-400 to-orange-600 bg-clip-text text-transparent font-black text-xl"
+        >
+          Luminous Ledger
+        </h1>
+        <p
+          class="text-zinc-500 font-semibold uppercase tracking-widest text-[10px] mt-1"
+        >
+          Premium Curator
+        </p>
+      </div>
+      <div class="flex-1 space-y-2">
+        <!-- Dashboard (Active) -->
+        <a
+          class="flex items-center space-x-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-full shadow-lg shadow-orange-500/20 px-6 py-3 transition-transform hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          <span
+            class="font-['Inter'] text-sm font-semibold uppercase tracking-widest"
+            >Dashboard</span
+          >
+        </a>
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">account_balance</span>
+          <span
+            class="font-['Inter'] text-sm font-semibold uppercase tracking-widest"
+            >Accounts</span
+          >
+        </a>
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">receipt_long</span>
+          <span
+            class="font-['Inter'] text-sm font-semibold uppercase tracking-widest"
+            >Transactions</span
+          >
+        </a>
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">settings</span>
+          <span
+            class="font-['Inter'] text-sm font-semibold uppercase tracking-widest"
+            >Settings</span
+          >
+        </a>
+      </div>
+      <div class="mt-auto">
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">logout</span>
+          <span
+            class="font-['Inter'] text-sm font-semibold uppercase tracking-widest"
+            >Logout</span
+          >
+        </a>
+      </div>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="ml-80 mr-12 py-12 min-h-screen">
+      <!-- Header -->
+      <header class="flex justify-between items-center w-full mb-12">
+        <div>
+          <h2 class="text-4xl font-black tracking-tighter text-white">
+            Dashboard
+          </h2>
+          <p class="text-on-surface-variant text-sm mt-1">
+            Welcome back, your financial overview is ready.
+          </p>
+        </div>
+        <div class="flex items-center space-x-6">
+          <button
+            class="p-3 bg-white/5 hover:bg-white/10 rounded-full transition-all duration-300 active:scale-95"
+          >
+            <span class="material-symbols-outlined text-white"
+              >notifications</span
+            >
+          </button>
+          <div
+            class="flex items-center space-x-4 bg-white/5 pl-2 pr-4 py-2 rounded-full"
+          >
+            <img
+              alt="User avatar"
+              class="w-10 h-10 rounded-full object-cover border-2 border-primary/20"
+              data-alt="close-up portrait of a professional man in a minimalist studio setting with soft side lighting and a neutral expression"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT8OZY-cETWT9DF6Wq6zx3yoA6vLPybfNFmNQqMlOTcyVKZUzFSgUth4wa442URjQVNXXsTj_U6f7xXtS9Y725-EmEKA1fPGW_PTP8yiv2iFHmYFJUU49DpATIVJKK6n4652Q6-scgp1iyznoqlhyvLvYmyom7FQsyt6f0FbMM8A0Hx3JqcT20p4d8bnP1G8QbB6d-FL78ObgbBzZ6RJkku2_sTErDMYBK47HXKn0Fi_SM36HM2fkvaSt1CLbYrVNzMAb1hukgoKcA"
+            />
+            <span class="font-bold text-sm tracking-tight"
+              >Household Selector</span
+            >
+            <span class="material-symbols-outlined text-zinc-500"
+              >expand_more</span
+            >
+          </div>
+        </div>
+      </header>
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-12 gap-8">
+        <!-- Key Metrics Cards -->
+        <div class="col-span-12 lg:col-span-4 space-y-8">
+          <!-- Total Balance -->
+          <div
+            class="glass-panel bg-surface-container-highest p-8 rounded-xl shadow-2xl relative overflow-hidden group"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16 group-hover:bg-primary/20 transition-colors duration-500"
+            ></div>
+            <p
+              class="text-on-surface-variant text-xs font-semibold uppercase tracking-widest mb-2"
+            >
+              Total Balance
+            </p>
+            <h3 class="text-5xl font-black tracking-tighter mb-6">
+              $142,850.40
+            </h3>
+            <div
+              class="flex items-center space-x-2 text-secondary text-sm font-bold"
+            >
+              <span class="material-symbols-outlined text-sm">trending_up</span>
+              <span>+12.5% from last month</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-6">
+            <!-- Earnings -->
+            <div class="glass-panel bg-surface-container p-6 rounded-lg">
+              <div
+                class="w-10 h-10 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-4"
+              >
+                <span class="material-symbols-outlined">south_west</span>
+              </div>
+              <p
+                class="text-on-surface-variant text-[10px] font-semibold uppercase tracking-widest mb-1"
+              >
+                Earnings
+              </p>
+              <h4 class="text-xl font-bold tracking-tight">$12,400</h4>
+            </div>
+            <!-- Expenses -->
+            <div class="glass-panel bg-surface-container p-6 rounded-lg">
+              <div
+                class="w-10 h-10 bg-error/10 text-error rounded-full flex items-center justify-center mb-4"
+              >
+                <span class="material-symbols-outlined">north_east</span>
+              </div>
+              <p
+                class="text-on-surface-variant text-[10px] font-semibold uppercase tracking-widest mb-1"
+              >
+                Expenses
+              </p>
+              <h4 class="text-xl font-bold tracking-tight">$4,820</h4>
+            </div>
+          </div>
+          <!-- My Goals Section -->
+          <div class="glass-panel bg-surface-container-low p-8 rounded-xl">
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="text-lg font-black tracking-tight">My Goals</h3>
+              <span class="material-symbols-outlined text-primary"
+                >add_circle</span
+              >
+            </div>
+            <div class="space-y-6">
+              <!-- Goal 1 -->
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-2">
+                  <span class="text-on-surface">New Tesla Model S</span>
+                  <span class="text-primary">75%</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-primary to-primary-container"
+                    style="width: 75%"
+                  ></div>
+                </div>
+              </div>
+              <!-- Goal 2 -->
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-2">
+                  <span class="text-on-surface">European Summer</span>
+                  <span class="text-secondary">40%</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-secondary-container"
+                    style="width: 40%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Central Statistic Chart (The Wave) -->
+        <div class="col-span-12 lg:col-span-8 space-y-8">
+          <div
+            class="glass-panel bg-surface-container-high p-8 rounded-xl h-full flex flex-col"
+          >
+            <div class="flex justify-between items-end mb-12">
+              <div>
+                <p
+                  class="text-on-surface-variant text-xs font-semibold uppercase tracking-widest mb-2"
+                >
+                  Performance Analytics
+                </p>
+                <h3 class="text-3xl font-black tracking-tighter">
+                  Wealth Accumulation
+                </h3>
+              </div>
+              <div class="flex space-x-2">
+                <button
+                  class="px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest bg-white/10 text-white"
+                >
+                  Week
+                </button>
+                <button
+                  class="px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest bg-primary text-on-primary"
+                >
+                  Month
+                </button>
+                <button
+                  class="px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest bg-white/5 text-zinc-500"
+                >
+                  Year
+                </button>
+              </div>
+            </div>
+            <!-- Chart Simulation -->
+            <div
+              class="relative flex-1 min-h-[300px] w-full mt-4 flex items-end"
+            >
+              <svg
+                class="w-full h-full absolute inset-0 overflow-visible"
+                preserveaspectratio="none"
+                viewbox="0 0 800 300"
+              >
+                <defs>
+                  <lineargradient
+                    id="chartGradient"
+                    x1="0%"
+                    x2="0%"
+                    y1="0%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      stop-color="#ffa84f"
+                      stop-opacity="0.3"
+                    ></stop>
+                    <stop
+                      offset="100%"
+                      stop-color="#ffa84f"
+                      stop-opacity="0"
+                    ></stop>
+                  </lineargradient>
+                </defs>
+                <!-- Background Wave Fill -->
+                <path
+                  d="M0,250 C100,220 200,280 300,180 C400,80 500,200 600,120 C700,40 800,100 800,100 L800,300 L0,300 Z"
+                  fill="url(#chartGradient)"
+                ></path>
+                <!-- Main Wave Line (Orange) -->
+                <path
+                  d="M0,250 C100,220 200,280 300,180 C400,80 500,200 600,120 C700,40 800,100 800,100"
+                  fill="none"
+                  stroke="#ffa84f"
+                  stroke-linecap="round"
+                  stroke-width="4"
+                ></path>
+                <!-- Secondary Wave Line (White/Subtle) -->
+                <path
+                  d="M0,220 C150,200 250,230 400,150 C550,70 650,150 800,80"
+                  fill="none"
+                  stroke="white"
+                  stroke-dasharray="8,8"
+                  stroke-opacity="0.2"
+                  stroke-width="2"
+                ></path>
+                <!-- Highlight Point -->
+                <circle cx="600" cy="120" fill="#ffa84f" r="6"></circle>
+                <circle
+                  cx="600"
+                  cy="120"
+                  fill="#ffa84f"
+                  fill-opacity="0.2"
+                  r="12"
+                ></circle>
+              </svg>
+              <!-- X Axis Labels -->
+              <div
+                class="absolute bottom-[-32px] left-0 w-full flex justify-between px-2"
+              >
+                <span
+                  class="text-[10px] font-bold text-zinc-600 uppercase tracking-tighter"
+                  >01 Jun</span
+                >
+                <span
+                  class="text-[10px] font-bold text-zinc-600 uppercase tracking-tighter"
+                  >08 Jun</span
+                >
+                <span
+                  class="text-[10px] font-bold text-zinc-600 uppercase tracking-tighter"
+                  >15 Jun</span
+                >
+                <span
+                  class="text-[10px] font-bold text-zinc-600 uppercase tracking-tighter"
+                  >22 Jun</span
+                >
+                <span
+                  class="text-[10px] font-bold text-zinc-600 uppercase tracking-tighter"
+                  >30 Jun</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Transactions -->
+        <div class="col-span-12">
+          <div class="glass-panel bg-surface-container-low p-8 rounded-xl">
+            <div class="flex justify-between items-center mb-8">
+              <div>
+                <h3 class="text-2xl font-black tracking-tighter">
+                  Month Transactions
+                </h3>
+                <p class="text-on-surface-variant text-xs mt-1">
+                  Showing last 12 activities
+                </p>
+              </div>
+              <button
+                class="text-primary text-sm font-bold flex items-center space-x-2 hover:opacity-80 transition-opacity"
+              >
+                <span>View All Statement</span>
+                <span class="material-symbols-outlined text-sm"
+                  >arrow_forward</span
+                >
+              </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+              <!-- Transaction 1 -->
+              <div
+                class="flex items-center justify-between p-4 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer"
+              >
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      alt="Apple logo"
+                      class="w-6 h-6 object-contain"
+                      data-alt="minimalist tech logo on a clean dark background with soft studio lighting"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhVwpuMC6HSWBCt1FeItDW3K-iZhBk4CXKM3O-7xUs-wqVaDJ7r0XElFuuTBC7AFCKEScN5AnH4Ub5NQK__DvYwbx-492O2ncAl-Rbak5uelm2iEceKWo0j_mcobqq2e0cu0_cioPy-LX_I2Cjnr5b0aYKPNPh7GrowmGK2HOBqVPgrk1aPCnVca1jTY0BiciqMAA-rOxpadOfyyNi4O7Xya6pFrssZ7t4OPNBWi5Nnw0Kv0kOapC_LJNoAudA4I1yy1GWYVPgnxg4"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-bold text-sm tracking-tight">Apple Store</p>
+                    <p
+                      class="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest"
+                    >
+                      Electronics &amp; Gadgets
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="font-black text-sm">-$1,299.00</p>
+                  <p class="text-zinc-500 text-[10px] font-medium">12:45 PM</p>
+                </div>
+              </div>
+              <!-- Transaction 2 -->
+              <div
+                class="flex items-center justify-between p-4 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer"
+              >
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      alt="Starbucks logo"
+                      class="w-6 h-6 object-contain"
+                      data-alt="minimalist coffee shop brand symbol in a modern dark green and white color palette"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCg6ay3al1f-V_snqqC9QJZ4LhLJe6-WtZBSaIJ4QRBUgPS72GEz6WfLjXZEchE63KUMKGo-1aYnSWDdtl34V_9RcAk4RaponAy5W4zT6vMbo-WjBSPdigMGMMww1_-pqTIZpip9q9HjciKF9L0mcJbMIcsV4LDeAApX6AmGbhxkfqmqhDE3fnTVY9LYppuc9rCaE8RX-FxFRM4HsUW7c-VwAlaciJCSOWDn5E3G3iGVKCjVAZsrv7M2kqprqMfAHCK7Pn3zBn6pq4"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-bold text-sm tracking-tight">
+                      Starbucks Reserve
+                    </p>
+                    <p
+                      class="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest"
+                    >
+                      Dining &amp; Drinks
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="font-black text-sm">-$12.40</p>
+                  <p class="text-zinc-500 text-[10px] font-medium">10:15 AM</p>
+                </div>
+              </div>
+              <!-- Transaction 3 -->
+              <div
+                class="flex items-center justify-between p-4 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer border-t border-white/5 md:border-t-0"
+              >
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      alt="Rent payment"
+                      class="w-6 h-6 object-contain"
+                      data-alt="abstract architectural icon representing a modern office building with sleek geometric lines"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQFZF0P7bTfwxm7mkbVh3ix3HBZ68-PACL4w76Mp-IBnk_gpyFdxL20KfCrUD2zOcqFgvc2kec_wdVwq4DPEX9jQy7eJbIawShdrsYNDPLgsGimcPPjPNWL2U35x4QLWD0c8jn23ixM9CRlJPBaqWwuKvg1Uxts8fRZ3g1braXAI11fPXsohea9DrykzFBzoCvyXwDzP-jpbSBQmiNtsjC4WTOlfQ2VuxbzfFxxKQiciGBmvxvMgG_bztlaEeXFaruyyYgvmgaakN2"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-bold text-sm tracking-tight">
+                      Skyline Properties
+                    </p>
+                    <p
+                      class="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest"
+                    >
+                      Housing &amp; Rent
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="font-black text-sm">-$3,200.00</p>
+                  <p class="text-zinc-500 text-[10px] font-medium">Yesterday</p>
+                </div>
+              </div>
+              <!-- Transaction 4 -->
+              <div
+                class="flex items-center justify-between p-4 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer border-t border-white/5 md:border-t-0"
+              >
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      alt="Salary"
+                      class="w-6 h-6 object-contain"
+                      data-alt="shining gold currency symbol with soft ambient glow against a dark professional background"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAUdljsAzT1pzfC0ss7eTq-E018ySfiNJQOvuusF2zMgcYMB_TNWYKarUG-ncN0vAcOTi1xl25BbyRrZku-hl6hf217uzhXlEabiG1BhmmLmSemZEPUlD3ry2JXpr64tSyZKmt5PB5HiCozyRPV4TwGhe9ntxFfbYWcE9qenn7SWos-3S8Rw4WzuIH51_UyIhytCVHWAVcdHpmK1OV7MndCkp9-mXIEVl1iGWSNhBPP96vnWvwxmoQ1Q4Fc-QhIiP-v9Dm8eA9Gs25"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-bold text-sm tracking-tight">
+                      Monthly Dividend
+                    </p>
+                    <p
+                      class="text-secondary text-[10px] font-semibold uppercase tracking-widest"
+                    >
+                      Investment Income
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="font-black text-sm text-secondary">+$2,450.00</p>
+                  <p class="text-zinc-500 text-[10px] font-medium">
+                    2 days ago
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Floating Action Button -->
+    <button
+      class="fixed bottom-12 right-12 w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-full shadow-2xl shadow-orange-500/40 flex items-center justify-center active:scale-95 transition-transform z-50"
+    >
+      <span class="material-symbols-outlined text-3xl">add</span>
+    </button>
+  </body>
+</html>

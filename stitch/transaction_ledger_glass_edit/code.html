@@ -1,0 +1,703 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Luminous Ledger - Transaction Ledger</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary-fixed': '#fd8b00',
+              'inverse-primary': '#914d00',
+              'secondary-fixed': '#ffd709',
+              'tertiary-fixed-dim': '#4aedef',
+              error: '#ff7351',
+              'outline-variant': '#484847',
+              'surface-container-high': '#20201f',
+              'on-primary': '#532a00',
+              'on-error-container': '#ffd2c8',
+              'tertiary-container': '#5dfbfe',
+              'secondary-dim': '#efc900',
+              outline: '#767575',
+              tertiary: '#c3feff',
+              'error-dim': '#d53d18',
+              'on-tertiary-fixed': '#00494a',
+              'inverse-on-surface': '#565555',
+              'surface-dim': '#0e0e0e',
+              'surface-container-highest': '#262626',
+              'tertiary-dim': '#3de4e7',
+              'on-tertiary': '#006668',
+              'inverse-surface': '#fcf9f8',
+              'on-surface-variant': '#adaaaa',
+              'on-tertiary-container': '#005d5f',
+              'on-secondary': '#5b4b00',
+              'surface-container': '#1a1a1a',
+              'surface-bright': '#2c2c2c',
+              'secondary-fixed-dim': '#efc900',
+              primary: '#ff9f4a',
+              'on-secondary-fixed-variant': '#665500',
+              'on-error': '#450900',
+              'surface-container-low': '#131313',
+              'surface-container-lowest': '#000000',
+              'on-surface': '#ffffff',
+              'primary-container': '#fd8b00',
+              'on-secondary-fixed': '#453900',
+              'primary-fixed-dim': '#ea8000',
+              'tertiary-fixed': '#5dfbfe',
+              'surface-tint': '#ff9f4a',
+              'on-secondary-container': '#fff7e6',
+              'primary-dim': '#ed8200',
+              'on-tertiary-fixed-variant': '#00686a',
+              background: '#0e0e0e',
+              'secondary-container': '#705d00',
+              'error-container': '#b92902',
+              'on-primary-fixed-variant': '#512800',
+              surface: '#0e0e0e',
+              'on-primary-container': '#442100',
+              secondary: '#ffd709',
+              'on-background': '#ffffff',
+              'surface-variant': '#262626',
+              'on-primary-fixed': '#180800',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0e0e0e;
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.15);
+      }
+      .glass-panel-dark {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.15);
+      }
+      .refraction-bg {
+        background:
+          radial-gradient(
+            circle at 50% -20%,
+            rgba(253, 139, 0, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 0% 100%,
+            rgba(195, 254, 255, 0.05) 0%,
+            transparent 40%
+          );
+      }
+    </style>
+  </head>
+  <body class="refraction-bg min-h-screen">
+    <!-- SideNavBar -->
+    <nav
+      class="fixed left-4 top-4 bottom-4 w-64 rounded-[2rem] z-50 bg-white/5 backdrop-blur-3xl border border-white/10 shadow-[20px_20px_50px_rgba(0,0,0,0.5)] shadow-[inset_1px_1px_0px_0px_rgba(255,255,255,0.15)] flex flex-col py-8 gap-2 hidden md:flex"
+    >
+      <div class="px-4 py-6">
+        <h1 class="text-lg font-black text-white">Luminous Ledger</h1>
+        <p
+          class="font-['Inter'] uppercase tracking-[0.05em] text-[10px] font-medium text-on-surface-variant"
+        >
+          The Digital Curator
+        </p>
+      </div>
+      <div class="flex-1 flex flex-col gap-1 px-2">
+        <a
+          class="text-[#adaaaa] hover:text-white flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          <span
+            class="font-['Inter'] uppercase tracking-[0.05em] text-xs font-medium"
+            >Dashboard</span
+          >
+        </a>
+        <a
+          class="text-[#adaaaa] hover:text-white flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all hover:translate-x-1 duration-200"
+          href="#"
+        >
+          <span class="material-symbols-outlined">account_balance_wallet</span>
+          <span
+            class="font-['Inter'] uppercase tracking-[0.05em] text-xs font-medium"
+            >Accounts</span
+          >
+        </a>
+        <a
+          class="bg-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,159,74,0.3)] text-white rounded-full flex items-center gap-3 px-4 py-3 mx-2 my-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">receipt_long</span>
+          <span
+            class="font-['Inter'] uppercase tracking-[0.05em] text-xs font-medium"
+            >Transactions</span
+          >
+        </a>
+      </div>
+      <div class="px-4 mt-auto mb-6">
+        <button
+          class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-full shadow-lg shadow-primary/20 active:scale-95 transition-transform"
+        >
+          Post Transaction
+        </button>
+      </div>
+      <div class="flex flex-col gap-1 px-2 border-t border-white/5 pt-4">
+        <a
+          class="text-[#adaaaa] hover:text-white flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all"
+          href="#"
+        >
+          <span class="material-symbols-outlined">help</span>
+          <span
+            class="font-['Inter'] uppercase tracking-[0.05em] text-xs font-medium"
+            >Support</span
+          >
+        </a>
+        <a
+          class="text-[#adaaaa] hover:text-white flex items-center gap-3 px-4 py-3 hover:bg-white/5 rounded-full transition-all"
+          href="#"
+        >
+          <span class="material-symbols-outlined">logout</span>
+          <span
+            class="font-['Inter'] uppercase tracking-[0.05em] text-xs font-medium"
+            >Logout</span
+          >
+        </a>
+      </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="md:ml-72 p-8">
+      <!-- Top Summary Cards (Bento Style) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Monthly Volume Card -->
+        <div
+          class="lg:col-span-2 glass-panel-dark rounded-[2rem] p-8 relative overflow-hidden group"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] -mr-32 -mt-32"
+          ></div>
+          <div class="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <p
+                class="font-label uppercase tracking-widest text-xs text-on-surface-variant mb-2"
+              >
+                Monthly Volume
+              </p>
+              <h2 class="text-4xl font-black text-white tracking-tighter">
+                $142,850.00
+              </h2>
+            </div>
+            <div class="mt-8 flex items-end gap-2 h-24">
+              <!-- Abstract Wave Graphic Mockup -->
+              <div
+                class="flex-1 h-8 bg-primary/20 rounded-t-xl group-hover:h-16 transition-all duration-500"
+              ></div>
+              <div
+                class="flex-1 h-12 bg-primary/30 rounded-t-xl group-hover:h-20 transition-all duration-500"
+              ></div>
+              <div
+                class="flex-1 h-16 bg-primary/40 rounded-t-xl group-hover:h-12 transition-all duration-500"
+              ></div>
+              <div
+                class="flex-1 h-20 bg-primary/50 rounded-t-xl group-hover:h-24 transition-all duration-500"
+              ></div>
+              <div
+                class="flex-1 h-14 bg-primary/40 rounded-t-xl group-hover:h-18 transition-all duration-500"
+              ></div>
+              <div
+                class="flex-1 h-10 bg-primary/30 rounded-t-xl group-hover:h-14 transition-all duration-500"
+              ></div>
+              <div
+                class="flex-1 h-18 bg-primary/20 rounded-t-xl group-hover:h-10 transition-all duration-500"
+              ></div>
+            </div>
+          </div>
+          <!-- Decorative SVG Wave -->
+          <div
+            class="absolute bottom-0 left-0 w-full opacity-20 pointer-events-none"
+          >
+            <img
+              class="w-full h-auto"
+              data-alt="abstract glowing orange wave line art with flowing curves on a dark background representing financial growth"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_dHwcGZtmv61XswXQ2HLYxXQpBwtizY8lBbmQJCZzHfJ4K-rJVXFAAVyy50-HCuqxzZ1iPybGJktApLFviP05qcaiHaRDhIYzZNmnM6RY7OVvRXoNu_Z0oUzC-095V2J9QkTT3DQ4fhewCSE0ASYMzjj7X7ptyEUAeVUaELEpc1ghB7YEsZ9fVtxliK4-TB16s2PwcAZPtqug1Uo-prrsEfyYbgoTYd3iAIXv321tSwN7j7sQogOhe3gvUNc_SzLECn8e0s-3-_RF"
+            />
+          </div>
+        </div>
+        <!-- Total Assets Card -->
+        <div
+          class="glass-panel-dark rounded-[2rem] p-8 flex flex-col justify-between border-l-4 border-tertiary"
+        >
+          <div>
+            <p
+              class="font-label uppercase tracking-widest text-xs text-on-surface-variant mb-2"
+            >
+              Portfolio Value
+            </p>
+            <h3 class="text-2xl font-bold text-white">$2,450,112</h3>
+            <div
+              class="mt-2 inline-flex items-center gap-1 text-tertiary-fixed-dim text-sm font-medium"
+            >
+              <span class="material-symbols-outlined text-sm">trending_up</span>
+              +12.4% this month
+            </div>
+          </div>
+          <div class="flex -space-x-3 mt-4">
+            <div
+              class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-highest overflow-hidden"
+            >
+              <img
+                class="w-full h-full object-cover"
+                data-alt="professional headshot of a woman with a confident expression in a high-key studio setting"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBztNUmLWLF5kzR5ZFTxj9SAU0V650SAViU839_WqpzLwEKWP7UGR9jeqxNYYgu72TFGz0xmh-Hi7SP_IrYhd6tpLkTQIUDsKJAwj2XmWDGrUKYHA5rgMGK7DB01s2vD5idGVVDUwzb5vB8xERSX6qMoIvMqqSj4uGLbBrEYqvHceyA56_P_MP3yYWEsryGYQ4CNNmT1gmo-g8Im_3QiqPF_ldn0GMuYG7ygZ4IPPS4nYGFaLURl-ajFWLzm-Fsb9YwBCzpQ2sLZ6i9"
+              />
+            </div>
+            <div
+              class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-highest overflow-hidden"
+            >
+              <img
+                class="w-full h-full object-cover"
+                data-alt="professional portrait of a smiling man wearing glasses and a formal navy suit jacket"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx6veaPSq71KFwe5Azc3f28nibn0A2z54UG00QK77_Q7KINrx0gS50wG71Z4C0QlPU6bP6Aw7EucD-tEmg94aYDY0TGyaC2C-hps2cC68kkfJxwAZlehTSVVVg_mp0q76ihiByYMK_UwkHpfPFJvJphgH1y7dSj9zIkM4Sr0mQWXj58g6_QpnNVMTr1p2JieGKy5FeLc085DE_f7Zduam7x7mG59V0yWHS2plDxQzInIRxvflYLicxkhUWRem1ATwMXe9EkYdk3pUr"
+              />
+            </div>
+            <div
+              class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px] font-bold bg-white/5 backdrop-blur-md"
+            >
+              +4
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Ledger Header & Controls -->
+      <div
+        class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6"
+      >
+        <div>
+          <h2 class="text-2xl font-black text-white tracking-tight">
+            Transaction Ledger
+          </h2>
+          <p class="text-on-surface-variant text-sm mt-1">
+            Real-time settlement data across all digital assets.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Filter Chips -->
+          <div class="flex p-1 bg-white/5 rounded-full border border-white/5">
+            <button
+              class="px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full bg-white/10 text-white shadow-sm"
+            >
+              All Time
+            </button>
+            <button
+              class="px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-on-surface-variant hover:text-white transition-colors"
+            >
+              Expenses
+            </button>
+            <button
+              class="px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-on-surface-variant hover:text-white transition-colors"
+            >
+              Income
+            </button>
+            <button
+              class="px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-on-surface-variant hover:text-white transition-colors"
+            >
+              Transfers
+            </button>
+          </div>
+          <div class="relative group">
+            <div
+              class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-tertiary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">search</span>
+            </div>
+            <input
+              class="bg-surface-container-highest border-none rounded-full pl-12 pr-6 py-2.5 text-sm w-full md:w-64 focus:ring-1 focus:ring-tertiary/30 transition-all outline-none text-white placeholder-on-surface-variant"
+              placeholder="Search entries..."
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Main Transaction Table -->
+      <div class="glass-panel-dark rounded-[2rem] overflow-hidden">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-white/5">
+                <th
+                  class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant"
+                >
+                  Asset / Description
+                </th>
+                <th
+                  class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant"
+                >
+                  Category
+                </th>
+                <th
+                  class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant"
+                >
+                  Timestamp
+                </th>
+                <th
+                  class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant"
+                >
+                  Status
+                </th>
+                <th
+                  class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-right"
+                >
+                  Amount
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              <!-- Row 1 -->
+              <tr
+                class="group hover:bg-white/[0.03] transition-colors cursor-pointer"
+              >
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary"
+                    >
+                      <span class="material-symbols-outlined">diamond</span>
+                    </div>
+                    <div>
+                      <p class="text-white font-semibold">
+                        Art Basel Acquisition
+                      </p>
+                      <p class="text-on-surface-variant text-xs">
+                        Primary Vault A-9
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-8 py-6">
+                  <span
+                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-on-surface-variant"
+                    >Investments</span
+                  >
+                </td>
+                <td class="px-8 py-6 text-sm text-on-surface-variant">
+                  Oct 24, 2023 · 14:22
+                </td>
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_rgba(195,254,255,0.8)]"
+                    ></div>
+                    <span class="text-xs font-medium text-white">Settled</span>
+                  </div>
+                </td>
+                <td class="px-8 py-6 text-right">
+                  <span class="text-white font-bold text-lg">-$85,000.00</span>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr
+                class="group hover:bg-white/[0.03] transition-colors cursor-pointer"
+              >
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-secondary"
+                    >
+                      <span class="material-symbols-outlined">payments</span>
+                    </div>
+                    <div>
+                      <p class="text-white font-semibold">
+                        Q3 Dividend Distribution
+                      </p>
+                      <p class="text-on-surface-variant text-xs">
+                        Luminous Equity Fund
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-8 py-6">
+                  <span
+                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-on-surface-variant"
+                    >Yield</span
+                  >
+                </td>
+                <td class="px-8 py-6 text-sm text-on-surface-variant">
+                  Oct 22, 2023 · 09:15
+                </td>
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_rgba(195,254,255,0.8)]"
+                    ></div>
+                    <span class="text-xs font-medium text-white">Settled</span>
+                  </div>
+                </td>
+                <td class="px-8 py-6 text-right">
+                  <span class="text-secondary font-bold text-lg"
+                    >+$12,450.00</span
+                  >
+                </td>
+              </tr>
+              <!-- Row 3 -->
+              <tr
+                class="group hover:bg-white/[0.03] transition-colors cursor-pointer"
+              >
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-tertiary"
+                    >
+                      <span class="material-symbols-outlined"
+                        >currency_bitcoin</span
+                      >
+                    </div>
+                    <div>
+                      <p class="text-white font-semibold">
+                        Cold Storage Rebalancing
+                      </p>
+                      <p class="text-on-surface-variant text-xs">
+                        Wallet 0x71...fE2
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-8 py-6">
+                  <span
+                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-on-surface-variant"
+                    >Transfers</span
+                  >
+                </td>
+                <td class="px-8 py-6 text-sm text-on-surface-variant">
+                  Oct 21, 2023 · 22:45
+                </td>
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(255,159,74,0.8)]"
+                    ></div>
+                    <span class="text-xs font-medium text-white">Pending</span>
+                  </div>
+                </td>
+                <td class="px-8 py-6 text-right">
+                  <span class="text-white font-bold text-lg">$0.00</span>
+                </td>
+              </tr>
+              <!-- Row 4 -->
+              <tr
+                class="group hover:bg-white/[0.03] transition-colors cursor-pointer"
+              >
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-error"
+                    >
+                      <span class="material-symbols-outlined"
+                        >shopping_bag</span
+                      >
+                    </div>
+                    <div>
+                      <p class="text-white font-semibold">
+                        Bespoke Concierge Service
+                      </p>
+                      <p class="text-on-surface-variant text-xs">
+                        Lifestyle Management
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-8 py-6">
+                  <span
+                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-on-surface-variant"
+                    >Luxury</span
+                  >
+                </td>
+                <td class="px-8 py-6 text-sm text-on-surface-variant">
+                  Oct 20, 2023 · 11:30
+                </td>
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_rgba(195,254,255,0.8)]"
+                    ></div>
+                    <span class="text-xs font-medium text-white">Settled</span>
+                  </div>
+                </td>
+                <td class="px-8 py-6 text-right">
+                  <span class="text-white font-bold text-lg">-$4,200.00</span>
+                </td>
+              </tr>
+              <!-- Row 5 -->
+              <tr
+                class="group hover:bg-white/[0.03] transition-colors cursor-pointer"
+              >
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary-fixed"
+                    >
+                      <span class="material-symbols-outlined">apartment</span>
+                    </div>
+                    <div>
+                      <p class="text-white font-semibold">Real Estate Escrow</p>
+                      <p class="text-on-surface-variant text-xs">
+                        Tribeca Loft Project
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-8 py-6">
+                  <span
+                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-on-surface-variant"
+                    >Capital</span
+                  >
+                </td>
+                <td class="px-8 py-6 text-sm text-on-surface-variant">
+                  Oct 18, 2023 · 16:00
+                </td>
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-1.5 h-1.5 rounded-full bg-error shadow-[0_0_8px_rgba(255,115,81,0.8)]"
+                    ></div>
+                    <span class="text-xs font-medium text-white">Rejected</span>
+                  </div>
+                </td>
+                <td class="px-8 py-6 text-right">
+                  <span
+                    class="text-on-surface-variant line-through font-bold text-lg"
+                    >-$1,250,000.00</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination / Footer -->
+        <div
+          class="px-8 py-6 flex items-center justify-between border-t border-white/5"
+        >
+          <p class="text-xs text-on-surface-variant font-medium">
+            Showing 5 of 1,248 entries
+          </p>
+          <div class="flex gap-2">
+            <button
+              class="w-8 h-8 rounded-full glass-panel flex items-center justify-center hover:bg-white/10 transition-all"
+            >
+              <span class="material-symbols-outlined text-sm"
+                >chevron_left</span
+              >
+            </button>
+            <button
+              class="w-8 h-8 rounded-full glass-panel flex items-center justify-center hover:bg-white/10 transition-all"
+            >
+              <span class="material-symbols-outlined text-sm"
+                >chevron_right</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- BottomNavBar for Mobile -->
+    <nav
+      class="fixed bottom-0 left-0 w-full h-20 bg-black/40 backdrop-blur-3xl border-t border-white/10 flex md:hidden justify-around items-center px-4 z-50"
+    >
+      <a
+        class="flex flex-col items-center gap-1 text-[#adaaaa] hover:text-white transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+      </a>
+      <a
+        class="flex flex-col items-center gap-1 text-[#adaaaa] hover:text-white transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">account_balance_wallet</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider"
+          >Vaults</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center gap-1 text-white border-b-2 border-[#ff9f4a] pb-1"
+        href="#"
+      >
+        <span class="material-symbols-outlined">receipt_long</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider"
+          >Ledger</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center gap-1 text-[#adaaaa] hover:text-white transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">settings</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider"
+          >Config</span
+        >
+      </a>
+    </nav>
+    <!-- TopBar for Mobile Profile/Notifications -->
+    <div
+      class="fixed top-0 left-0 w-full h-16 bg-black/40 backdrop-blur-3xl border-b border-white/10 flex md:hidden justify-between items-center px-6 z-50"
+    >
+      <span class="text-xl font-black tracking-tighter text-white">L.L.</span>
+      <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-white/70"
+          >notifications</span
+        >
+        <div
+          class="w-8 h-8 rounded-full bg-white/10 border border-white/20 p-0.5"
+        >
+          <img
+            class="w-full h-full object-cover rounded-full"
+            data-alt="close up avatar of a woman with high end digital aesthetic"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTu65ixMT-EEzo1RvsmmJVuwf21xbEOTSIYUV_ISNIZPSElrq94xSMca0G-MXo0BgN5AkCuzxK61rqlVpD6X4ATKtfiIWgcWatkyyb3zlXonQ6FuZNeMqdw9ScbKY3QyWNHfbGJSYJXpaDikWTl0d_4BphHgJqrOz1LuwkGJUjAfbZ4hDGfXDj6jwmdTLTSkpiRnsNq4K7KzXZiV0IlMF7E9TBZ-pDxvpDpWJCAVlX7v49pe_0vv2c67HodATw0kYHBhSiG0yvvLlk"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

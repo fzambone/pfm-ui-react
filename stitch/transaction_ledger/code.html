@@ -1,0 +1,602 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Luminous Ledger - Transaction Ledger</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-secondary-fixed-variant': '#006668',
+              'on-primary-container': '#482600',
+              'surface-bright': '#2c2c2c',
+              'on-surface-variant': '#adaaaa',
+              'primary-container': '#fe9400',
+              'inverse-on-surface': '#565555',
+              'on-secondary-fixed': '#004748',
+              'on-primary-fixed-variant': '#542e00',
+              'on-background': '#ffffff',
+              'inverse-primary': '#8d5000',
+              'on-primary': '#562f00',
+              surface: '#0e0e0e',
+              'inverse-surface': '#fcf9f8',
+              'surface-dim': '#0e0e0e',
+              'secondary-fixed': '#5af8fb',
+              'on-error-container': '#ffd2c8',
+              'secondary-container': '#00696b',
+              'on-surface': '#ffffff',
+              'surface-variant': '#262626',
+              'on-tertiary-container': '#584500',
+              'surface-container-lowest': '#000000',
+              'secondary-fixed-dim': '#46eaed',
+              'primary-fixed': '#fe9400',
+              'primary-dim': '#ea8900',
+              'outline-variant': '#484848',
+              secondary: '#5af8fb',
+              'on-error': '#450900',
+              'tertiary-fixed-dim': '#eebe00',
+              primary: '#ffa84f',
+              tertiary: '#ffdd7c',
+              'surface-container-high': '#1f2020',
+              outline: '#767575',
+              background: '#0e0e0e',
+              error: '#ff7351',
+              'secondary-dim': '#46eaed',
+              'surface-container-highest': '#262626',
+              'on-tertiary-fixed': '#413200',
+              'on-tertiary': '#634d00',
+              'surface-container': '#191a1a',
+              'tertiary-fixed': '#fecb00',
+              'surface-tint': '#ffa84f',
+              'error-container': '#b92902',
+              'primary-fixed-dim': '#ea8900',
+              'tertiary-dim': '#eebe00',
+              'error-dim': '#d53d18',
+              'tertiary-container': '#fecb00',
+              'on-primary-fixed': '#231000',
+              'on-tertiary-fixed-variant': '#634e00',
+              'on-secondary-container': '#d9ffff',
+              'surface-container-low': '#131313',
+              'on-secondary': '#005b5d',
+            },
+            borderRadius: {
+              DEFAULT: '1rem',
+              lg: '2rem',
+              xl: '3rem',
+              full: '9999px',
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0e0e0e;
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(38, 38, 38, 0.4);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+      .gradient-text {
+        background: linear-gradient(to bottom right, #ffa84f, #fe9400);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+  </head>
+  <body class="bg-surface selection:bg-primary selection:text-on-primary">
+    <!-- Top Navigation Anchor -->
+    <header
+      class="flex justify-between items-center w-full px-12 py-6 sticky top-0 z-40 bg-zinc-950/60 backdrop-blur-2xl bg-white/5 shadow-2xl shadow-black/40 font-['Inter'] tracking-tight text-white"
+    >
+      <div class="text-2xl font-black tracking-tighter text-white">
+        Luminous Ledger
+      </div>
+      <nav class="hidden md:flex items-center space-x-8">
+        <span
+          class="text-zinc-500 font-medium hover:bg-white/10 transition-all duration-300 px-4 py-2 rounded-full cursor-pointer"
+          >Household Selector</span
+        >
+      </nav>
+      <div class="flex items-center space-x-6">
+        <button
+          class="material-symbols-outlined text-zinc-400 hover:text-white transition-colors"
+        >
+          notifications
+        </button>
+        <button
+          class="material-symbols-outlined text-zinc-400 hover:text-white transition-colors"
+        >
+          account_circle
+        </button>
+      </div>
+    </header>
+    <!-- Sidebar Navigation -->
+    <aside
+      class="fixed left-0 top-0 h-full flex flex-col space-y-4 py-12 px-6 z-50 bg-zinc-900/40 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] h-[983px] m-[20px] w-72 rounded-[3rem] border-none"
+    >
+      <div class="mb-10 px-6">
+        <div
+          class="bg-gradient-to-br from-orange-400 to-orange-600 bg-clip-text text-transparent font-black text-xl"
+        >
+          Luminous Ledger
+        </div>
+        <div class="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mt-1">
+          Premium Curator
+        </div>
+      </div>
+      <nav class="flex-1 flex flex-col space-y-2">
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-colors font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-colors font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">account_balance</span>
+          <span>Accounts</span>
+        </a>
+        <a
+          class="flex items-center space-x-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-full shadow-lg shadow-orange-500/20 px-6 py-3 font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">receipt_long</span>
+          <span>Transactions</span>
+        </a>
+        <a
+          class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-colors font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">settings</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <a
+        class="flex items-center space-x-4 text-zinc-400 px-6 py-3 hover:text-white hover:bg-white/5 rounded-full transition-colors font-['Inter'] text-sm font-semibold uppercase tracking-widest mt-auto"
+        href="#"
+      >
+        <span class="material-symbols-outlined">logout</span>
+        <span>Logout</span>
+      </a>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="ml-80 mr-12 py-12 min-h-screen">
+      <!-- Header Section -->
+      <section class="flex justify-between items-end mb-12">
+        <div class="space-y-2">
+          <h1 class="text-6xl font-black tracking-tighter text-white">
+            Ledger
+          </h1>
+          <p class="text-on-surface-variant font-medium text-lg">
+            Detailed audit of all financial movements.
+          </p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div
+            class="flex items-center glass-panel rounded-full px-6 py-3 border border-outline-variant/15"
+          >
+            <span class="material-symbols-outlined text-zinc-500 mr-3"
+              >search</span
+            >
+            <input
+              class="bg-transparent border-none focus:ring-0 text-sm w-48 text-white placeholder-zinc-500"
+              placeholder="Search entries..."
+              type="text"
+            />
+          </div>
+          <button
+            class="bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-8 py-4 rounded-full shadow-xl shadow-primary/10 hover:scale-105 transition-transform active:scale-95 flex items-center space-x-2"
+          >
+            <span
+              class="material-symbols-outlined"
+              style="font-variation-settings: 'FILL' 1"
+              >add</span
+            >
+            <span>Post Transaction</span>
+          </button>
+        </div>
+      </section>
+      <!-- Stats Overview (Asymmetric) -->
+      <section class="grid grid-cols-12 gap-6 mb-12">
+        <div
+          class="col-span-8 glass-panel p-10 rounded-xl relative overflow-hidden"
+        >
+          <div class="relative z-10">
+            <span
+              class="label-md uppercase tracking-widest text-on-surface-variant mb-4 block"
+              >Monthly Volume</span
+            >
+            <div class="flex items-baseline space-x-4">
+              <span class="text-6xl font-black tracking-tighter"
+                >$142,850.00</span
+              >
+              <span class="text-secondary font-bold">+12.4%</span>
+            </div>
+          </div>
+          <!-- Decorative background image -->
+          <div
+            class="absolute right-0 top-0 w-1/2 h-full opacity-20 pointer-events-none"
+          >
+            <img
+              class="w-full h-full object-cover"
+              data-alt="abstract glowing digital data mesh with fluid organic curves on a deep black background"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuClm2a3yWM6sawsXr1X9K55mMfGtc9gg5Q0c9sieVJchZPg_nEBy3h4t-PKyM02oXiuFP1wgJHgS7wPW4oYH45vp0tlIwlT4jLsCPR476O9doTMIYKjyxlUtZjbn1X80nKzsfuq2BYg2kVaemJv5tmodIejy6U4zBMcczGKUWrnQxOvdxJlGPPtJt7qoAJttbY3htdDk-PLM2eDmMJ7c-FElfeBUYcf_xD4zwtOwpOq-zTOhbaW8F5Wt6AFR5avEJ6QrVcp7CnQjJqG"
+            />
+          </div>
+        </div>
+        <div
+          class="col-span-4 bg-surface-container-high p-10 rounded-xl flex flex-col justify-between"
+        >
+          <span
+            class="label-md uppercase tracking-widest text-on-surface-variant"
+            >Pending Settlements</span
+          >
+          <span class="text-4xl font-bold">14</span>
+          <div class="h-1 bg-surface-variant rounded-full overflow-hidden">
+            <div
+              class="h-full bg-secondary w-2/3 shadow-[0_0_15px_rgba(90,248,251,0.5)]"
+            ></div>
+          </div>
+        </div>
+      </section>
+      <!-- Table Filters -->
+      <section class="flex items-center space-x-4 mb-8">
+        <button
+          class="px-6 py-2 rounded-full glass-panel text-sm font-semibold text-white border border-primary/20"
+        >
+          All Time
+        </button>
+        <button
+          class="px-6 py-2 rounded-full glass-panel text-sm font-semibold text-zinc-500 hover:text-white transition-colors"
+        >
+          Expenses
+        </button>
+        <button
+          class="px-6 py-2 rounded-full glass-panel text-sm font-semibold text-zinc-500 hover:text-white transition-colors"
+        >
+          Income
+        </button>
+        <button
+          class="px-6 py-2 rounded-full glass-panel text-sm font-semibold text-zinc-500 hover:text-white transition-colors"
+        >
+          Internal Transfers
+        </button>
+        <div class="flex-1"></div>
+        <button
+          class="flex items-center space-x-2 text-on-surface-variant hover:text-white transition-colors"
+        >
+          <span class="material-symbols-outlined">filter_list</span>
+          <span class="text-sm font-bold uppercase tracking-widest"
+            >Advanced Filters</span
+          >
+        </button>
+      </section>
+      <!-- Transaction Ledger Table -->
+      <section
+        class="glass-panel rounded-xl overflow-hidden border border-outline-variant/5"
+      >
+        <table class="w-full text-left">
+          <thead>
+            <tr class="bg-surface-container-low/50">
+              <th
+                class="px-8 py-6 text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-black"
+              >
+                Date
+              </th>
+              <th
+                class="px-8 py-6 text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-black"
+              >
+                Description
+              </th>
+              <th
+                class="px-8 py-6 text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-black"
+              >
+                From Account
+              </th>
+              <th
+                class="px-8 py-6 text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-black"
+              >
+                To Account
+              </th>
+              <th
+                class="px-8 py-6 text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-black text-right"
+              >
+                Amount
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <!-- Row 1 -->
+            <tr class="group hover:bg-white/5 transition-colors">
+              <td class="px-8 py-8">
+                <div class="text-sm font-bold text-white">Oct 24, 2023</div>
+                <div class="text-xs text-zinc-500">14:32 PM</div>
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-primary"
+                      >shopping_bag</span
+                    >
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">
+                      Luxury Apparel Ltd.
+                    </div>
+                    <div class="text-xs text-zinc-500">
+                      Lifestyle &amp; Fashion
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-8 py-8">
+                <span
+                  class="text-xs font-bold px-3 py-1 bg-surface-container rounded-full text-zinc-400"
+                  >Cash Assets</span
+                >
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="material-symbols-outlined text-[14px] text-zinc-600"
+                    >trending_flat</span
+                  >
+                  <span
+                    class="text-xs font-bold px-3 py-1 bg-surface-container-highest rounded-full text-zinc-300"
+                    >Equity: Lifestyle</span
+                  >
+                </div>
+              </td>
+              <td class="px-8 py-8 text-right">
+                <div class="text-lg font-black tracking-tight text-white">
+                  -$1,240.00
+                </div>
+                <div
+                  class="text-[10px] text-zinc-500 uppercase tracking-widest"
+                >
+                  Settled
+                </div>
+              </td>
+            </tr>
+            <!-- Row 2 -->
+            <tr class="group hover:bg-white/5 transition-colors">
+              <td class="px-8 py-8">
+                <div class="text-sm font-bold text-white">Oct 22, 2023</div>
+                <div class="text-xs text-zinc-500">09:15 AM</div>
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-secondary"
+                      >payments</span
+                    >
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">
+                      Monthly Dividend Yield
+                    </div>
+                    <div class="text-xs text-zinc-500">Investment Income</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-8 py-8">
+                <span
+                  class="text-xs font-bold px-3 py-1 bg-surface-container rounded-full text-zinc-400"
+                  >Portfolio A</span
+                >
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="material-symbols-outlined text-[14px] text-zinc-600"
+                    >trending_flat</span
+                  >
+                  <span
+                    class="text-xs font-bold px-3 py-1 bg-surface-container-highest rounded-full text-zinc-300"
+                    >Checking Balance</span
+                  >
+                </div>
+              </td>
+              <td class="px-8 py-8 text-right">
+                <div class="text-lg font-black tracking-tight text-secondary">
+                  +$3,450.00
+                </div>
+                <div
+                  class="text-[10px] text-zinc-500 uppercase tracking-widest"
+                >
+                  Pending
+                </div>
+              </td>
+            </tr>
+            <!-- Row 3 -->
+            <tr class="group hover:bg-white/5 transition-colors">
+              <td class="px-8 py-8">
+                <div class="text-sm font-bold text-white">Oct 21, 2023</div>
+                <div class="text-xs text-zinc-500">20:45 PM</div>
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-error"
+                      >restaurant</span
+                    >
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">
+                      The Gilded Fork
+                    </div>
+                    <div class="text-xs text-zinc-500">Fine Dining</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-8 py-8">
+                <span
+                  class="text-xs font-bold px-3 py-1 bg-surface-container rounded-full text-zinc-400"
+                  >Credit Line</span
+                >
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="material-symbols-outlined text-[14px] text-zinc-600"
+                    >trending_flat</span
+                  >
+                  <span
+                    class="text-xs font-bold px-3 py-1 bg-surface-container-highest rounded-full text-zinc-300"
+                    >Equity: Dining</span
+                  >
+                </div>
+              </td>
+              <td class="px-8 py-8 text-right">
+                <div class="text-lg font-black tracking-tight text-white">
+                  -$425.50
+                </div>
+                <div
+                  class="text-[10px] text-zinc-500 uppercase tracking-widest"
+                >
+                  Settled
+                </div>
+              </td>
+            </tr>
+            <!-- Row 4 -->
+            <tr class="group hover:bg-white/5 transition-colors">
+              <td class="px-8 py-8">
+                <div class="text-sm font-bold text-white">Oct 20, 2023</div>
+                <div class="text-xs text-zinc-500">11:00 AM</div>
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-tertiary"
+                      >swap_horiz</span
+                    >
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">
+                      Internal Liquidity Shift
+                    </div>
+                    <div class="text-xs text-zinc-500">Treasury Management</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-8 py-8">
+                <span
+                  class="text-xs font-bold px-3 py-1 bg-surface-container rounded-full text-zinc-400"
+                  >Savings Account</span
+                >
+              </td>
+              <td class="px-8 py-8">
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="material-symbols-outlined text-[14px] text-zinc-600"
+                    >trending_flat</span
+                  >
+                  <span
+                    class="text-xs font-bold px-3 py-1 bg-surface-container-highest rounded-full text-zinc-300"
+                    >Active Trading</span
+                  >
+                </div>
+              </td>
+              <td class="px-8 py-8 text-right">
+                <div class="text-lg font-black tracking-tight text-zinc-400">
+                  $25,000.00
+                </div>
+                <div
+                  class="text-[10px] text-zinc-500 uppercase tracking-widest"
+                >
+                  Reconciled
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Pagination / Footer -->
+        <div
+          class="px-8 py-6 bg-surface-container-low/50 flex justify-between items-center"
+        >
+          <span class="text-xs text-zinc-500 font-medium"
+            >Showing 1 to 4 of 24,812 transactions</span
+          >
+          <div class="flex items-center space-x-2">
+            <button
+              class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 text-zinc-400 hover:text-white transition-colors"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button
+              class="w-10 h-10 rounded-full flex items-center justify-center bg-primary text-on-primary font-bold shadow-lg shadow-primary/20"
+            >
+              1
+            </button>
+            <button
+              class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 text-zinc-400 hover:text-white transition-colors"
+            >
+              2
+            </button>
+            <button
+              class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 text-zinc-400 hover:text-white transition-colors"
+            >
+              3
+            </button>
+            <button
+              class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 text-zinc-400 hover:text-white transition-colors"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Background Decorative Elements -->
+    <div
+      class="fixed top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[120px] pointer-events-none -z-10"
+    ></div>
+    <div
+      class="fixed bottom-[5%] left-[10%] w-[30vw] h-[30vw] bg-secondary/5 rounded-full blur-[100px] pointer-events-none -z-10"
+    ></div>
+  </body>
+</html>
