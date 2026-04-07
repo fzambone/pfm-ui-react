@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
 
 import { Icon } from '@/shared/components/Icon';
+import { SidebarNav } from '@/shared/components/SidebarNav';
 import { Text } from '@/shared/components/Text';
 import { cn } from '@/shared/utils/cn';
 
@@ -89,10 +90,8 @@ export function AppLayout(): React.ReactElement {
           </Text>
         </div>
 
-        {/* Navigation slot — will be filled by SidebarNav in #27 */}
-        <nav className="flex-1 px-2" aria-label="Main navigation">
-          {/* Placeholder for navigation items */}
-        </nav>
+        {/* Sidebar navigation */}
+        <SidebarNav onNavigate={closeMobile} />
       </aside>
 
       {/* Main content area */}
