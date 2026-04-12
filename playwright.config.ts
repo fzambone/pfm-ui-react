@@ -24,9 +24,7 @@ export default defineConfig({
 
   webServer: {
     command: process.env['CI'] ? 'pnpm preview' : 'pnpm dev',
-    url: process.env['CI']
-      ? 'http://localhost:4173'
-      : 'http://localhost:5173',
+    url: process.env['CI'] ? 'http://localhost:4173' : 'http://localhost:5173',
     reuseExistingServer: !process.env['CI'],
     timeout: 120_000,
   },

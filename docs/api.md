@@ -386,7 +386,10 @@ src/features/
 ```typescript
 // src/shared/utils/api.ts
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'https://pfm-go-api.fly.dev';
+// In dev, Vite proxies /auth, /api, and /health to the remote API server-side,
+// so there are no CORS issues and no remote origin needed here.
+// In production, VITE_API_URL is empty and paths are relative to the deployed host.
+const BASE_URL = import.meta.env.VITE_API_URL ?? '';
 
 export type ApiError = { error: string; fields?: Record<string, string[]> };
 export type Result<T> =
@@ -472,12 +475,10 @@ export function formatMoney(cents: number, currency: CurrencyCode): string {
 
 ## Environment Variables
 
-| Variable       | Description      | Default                      |
-| -------------- | ---------------- | ---------------------------- |
-| `VITE_API_URL` | Backend base URL | `https://pfm-go-api.fly.dev` |
+| Variable       | Description                                               | Default |
+| -------------- | --------------------------------------------------------- | ------- |
+| `VITE_API_URL` | Backend base URL — leave empty in dev (proxy handles it)  | `""`    |
 
-Set in `.env.local` for local development (never commit this file):
+**Local development:** do not set `VITE_API_URL`. The Vite dev server proxies `/auth`, `/api`, and `/health` to `https://pfm-go-api.fly.dev` server-side, so no CORS headers are needed and no remote origin is sent from the browser.
 
-```
-VITE_API_URL=http://localhost:8080
-```
+**Production:** `VITE_API_URL` should remain unset if the frontend and API share the same domain, or be set to the API's full origin if they are on separate domains (which requires CORS to be configured on the backend to allow the frontend's domain).

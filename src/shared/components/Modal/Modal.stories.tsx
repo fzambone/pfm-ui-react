@@ -86,7 +86,10 @@ export const Large: Story = {
 };
 
 export const WithForm: Story = {
-  args: { title: 'Add Transaction', description: 'Enter the transaction details.' },
+  args: {
+    title: 'Add Transaction',
+    description: 'Enter the transaction details.',
+  },
   render: (args) => (
     <ModalDemo title={args.title}>
       <div className="space-y-4">
