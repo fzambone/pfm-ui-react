@@ -4,6 +4,7 @@ import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute';
 import { PublicRoute } from '@/features/auth/components/PublicRoute';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { HouseholdsPage } from '@/pages/HouseholdsPage';
+import { LoginPage } from '@/pages/LoginPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { AppLayout } from '@/shared/components/AppLayout';
@@ -23,7 +24,7 @@ function App(): React.ReactElement {
     <Routes>
       {/* Public routes — accessible only when unauthenticated */}
       <Route element={<PublicRoute />}>
-        <Route path="/login" element={<p>Login coming soon</p>} />
+        <Route path="/login" element={<LoginPage />} />
       </Route>
 
       {/* Protected routes — require authentication */}

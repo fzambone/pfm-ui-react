@@ -4,11 +4,21 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
+const API_URL = process.env['VITE_API_URL'] ?? 'https://pfm-go-api.fly.dev';
+
 export default defineConfig({
   plugins: [react(), tailwindcss()],
 
   resolve: {
     alias: { '@': resolve(__dirname, './src') },
+  },
+
+  server: {
+    proxy: {
+      '/auth': { target: API_URL, changeOrigin: true },
+      '/api': { target: API_URL, changeOrigin: true },
+      '/health': { target: API_URL, changeOrigin: true },
+    },
   },
 
   test: {
