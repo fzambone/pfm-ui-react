@@ -31,6 +31,9 @@ playwright-report/
 test-results/
 blob-report/
 
+# Storybook build
+storybook-static/
+
 # Editor
 .vscode/
 .idea/

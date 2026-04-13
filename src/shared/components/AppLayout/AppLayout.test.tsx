@@ -1,9 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { useAuth } from '@/features/auth/useAuth';
 
 import { AppLayout } from './AppLayout';
+
+// vi.mock is hoisted by Vitest above all imports, so the mock is in place before
+// the module under test runs. The static import of useAuth above reflects the mocked module.
+vi.mock('@/features/auth/useAuth', () => ({
+  useAuth: vi.fn(),
+}));
+
+const mockLogout = vi.fn();
+const mockUseAuth = vi.mocked(useAuth);
 
 function renderWithRouter(ui?: React.ReactElement) {
   return render(
@@ -15,12 +26,26 @@ function renderWithRouter(ui?: React.ReactElement) {
             element={ui ?? <div data-testid="page-content">Page Content</div>}
           />
         </Route>
+        <Route path="/login" element={<div>Login Page</div>} />
       </Routes>
     </MemoryRouter>,
   );
 }
 
 describe('AppLayout', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockUseAuth.mockReturnValue({
+      state: {
+        isAuthenticated: true,
+        token: 'tok',
+        expiresAt: '2099-01-01T00:00:00Z',
+      },
+      login: vi.fn(),
+      logout: mockLogout,
+    });
+  });
+
   // --- Structure ---
 
   it('renders a sidebar and main content area', () => {
@@ -115,5 +140,40 @@ describe('AppLayout', () => {
     renderWithRouter();
     const sidebar = screen.getByRole('complementary', { name: /sidebar/i });
     expect(sidebar.className).toMatch(/overflow-y-auto/);
+  });
+
+  // --- Logout ---
+
+  describe('logout button', () => {
+    it('renders a Sign out button in the sidebar', () => {
+      renderWithRouter();
+      expect(
+        screen.getByRole('button', { name: /sign out/i }),
+      ).toBeInTheDocument();
+    });
+
+    it('calls logout when the Sign out button is clicked', async () => {
+      const user = userEvent.setup();
+      renderWithRouter();
+      await user.click(screen.getByRole('button', { name: /sign out/i }));
+      expect(mockLogout).toHaveBeenCalledOnce();
+    });
+
+    it('navigates to /login after logout', async () => {
+      const user = userEvent.setup();
+      renderWithRouter();
+      await user.click(screen.getByRole('button', { name: /sign out/i }));
+      expect(screen.getByText('Login Page')).toBeInTheDocument();
+    });
+
+    it('is keyboard-accessible — activatable with Enter', async () => {
+      const user = userEvent.setup();
+      renderWithRouter();
+      const logoutButton = screen.getByRole('button', { name: /sign out/i });
+      logoutButton.focus();
+      expect(logoutButton).toHaveFocus();
+      await user.keyboard('{Enter}');
+      expect(mockLogout).toHaveBeenCalledOnce();
+    });
   });
 });

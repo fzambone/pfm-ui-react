@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
+import { useAuth } from '@/features/auth/useAuth';
+import { Button } from '@/shared/components/Button';
 import { Icon } from '@/shared/components/Icon';
 import { SidebarNav } from '@/shared/components/SidebarNav';
 import { Text } from '@/shared/components/Text';
@@ -24,6 +26,17 @@ import { cn } from '@/shared/utils/cn';
 
 export function AppLayout(): React.ReactElement {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  // useCallback keeps the reference stable. The handler calls logout (which
+  // clears the token from localStorage and resets auth state) then navigates
+  // to /login. ProtectedRoute will catch any subsequent attempt to reach a
+  // protected page and redirect here again — so the redirect is belt-and-suspenders.
+  const handleLogout = useCallback((): void => {
+    logout();
+    void navigate('/login');
+  }, [logout, navigate]);
 
   const closeMobile = useCallback(() => {
     setIsMobileOpen(false);
@@ -92,6 +105,18 @@ export function AppLayout(): React.ReactElement {
 
         {/* Sidebar navigation */}
         <SidebarNav onNavigate={closeMobile} />
+
+        {/* Sidebar footer — sign out action */}
+        <div className="mt-auto px-4 pb-2 pt-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            className="w-full justify-start"
+          >
+            Sign out
+          </Button>
+        </div>
       </aside>
 
       {/* Main content area */}
