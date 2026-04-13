@@ -129,6 +129,34 @@ Confirm the PR number before merging.
 
 ---
 
+## Step 6.5 — Close pfm-go API tracking issue (if applicable)
+
+After merging, check whether this PR was addressing a pfm-go-originated API update issue.
+
+Look for evidence in:
+- The PR title or body (references to "API update" or `fzambone/pfm-go#<N>`)
+- The branch name (e.g. `feat/api-update-...`)
+- Issues linked in the PR via "closes #N" or "refs #N"
+
+```
+gh pr view <PR-number> --json body,title,closingIssuesReferences
+```
+
+**If no API tracking issue is referenced:** skip this step silently. Proceed to Step 7.
+
+**If an open tracking issue is found** (e.g. an issue titled "API update: sync frontend with pfm-go #X"):
+
+Ask: **"Close tracking issue #<N> ('API update: sync frontend with pfm-go #X')? (y/n)"**
+
+If **yes**:
+```
+gh issue close <N> --comment "Addressed in pfm-ui-react PR #<PR-number>."
+```
+
+If **no**: leave open. Note it in the Step 8 report.
+
+---
+
 ## Step 7 — Sync main
 
 ```
@@ -141,12 +169,13 @@ git pull
 ## Step 8 — Report
 
 ```
-Branch:       feat/<scope>-<description>-<N>
-PR:           #<number> — <url>
-Merged:       squash-merge ✓
-Branch:       deleted ✓
-Main:         synced ✓
-Business:     PASS / NEEDS DISCUSSION
+Branch:           feat/<scope>-<description>-<N>
+PR:               #<number> — <url>
+Merged:           squash-merge ✓
+Branch:           deleted ✓
+Main:             synced ✓
+Business:         PASS / NEEDS DISCUSSION
+API tracking:     issue #<N> closed ✓ / none / left open
 
 Story #<N> is done.
 ```
