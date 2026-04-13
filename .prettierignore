@@ -1,0 +1,7 @@
+# Build artifacts
+dist/
+storybook-static/
+coverage/
+
+# Generated files
+node_modules/
