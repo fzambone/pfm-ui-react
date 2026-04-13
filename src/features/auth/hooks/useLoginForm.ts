@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { callLogin, LoginError } from '../api/login';
+import { LoginError, callLogin } from '../api/login';
 import { useAuth } from '../useAuth';
 
 interface LoginFormState {
@@ -43,25 +43,51 @@ export function useLoginForm(): UseLoginFormReturn {
   });
 
   const handleEmailChange = (value: string): void => {
-    setState((prev) => ({ ...prev, email: value, emailError: null, error: null }));
+    setState((prev) => ({
+      ...prev,
+      email: value,
+      emailError: null,
+      error: null,
+    }));
   };
 
   const handlePasswordChange = (value: string): void => {
-    setState((prev) => ({ ...prev, password: value, passwordError: null, error: null }));
+    setState((prev) => ({
+      ...prev,
+      password: value,
+      passwordError: null,
+      error: null,
+    }));
   };
 
   const handleSubmit = async (): Promise<void> => {
     // Client-side validation — prevents unnecessary API calls.
     if (!state.email.trim()) {
-      setState((prev) => ({ ...prev, emailError: 'Email is required.', passwordError: null, error: null }));
+      setState((prev) => ({
+        ...prev,
+        emailError: 'Email is required.',
+        passwordError: null,
+        error: null,
+      }));
       return;
     }
     if (!state.password) {
-      setState((prev) => ({ ...prev, passwordError: 'Password is required.', emailError: null, error: null }));
+      setState((prev) => ({
+        ...prev,
+        passwordError: 'Password is required.',
+        emailError: null,
+        error: null,
+      }));
       return;
     }
 
-    setState((prev) => ({ ...prev, isLoading: true, emailError: null, passwordError: null, error: null }));
+    setState((prev) => ({
+      ...prev,
+      isLoading: true,
+      emailError: null,
+      passwordError: null,
+      error: null,
+    }));
 
     try {
       const { token, expiresAt } = await callLogin(state.email, state.password);

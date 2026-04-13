@@ -45,7 +45,9 @@ export function LoginPage(): React.ReactElement {
             type="email"
             autoComplete="email"
             value={email}
-            onChange={(e) => { handleEmailChange(e.target.value); }}
+            onChange={(e) => {
+              handleEmailChange(e.target.value);
+            }}
             disabled={isLoading}
             hasError={emailError !== null}
             {...(emailError !== null && { errorMessage: emailError })}
@@ -56,7 +58,9 @@ export function LoginPage(): React.ReactElement {
             type="password"
             autoComplete="current-password"
             value={password}
-            onChange={(e) => { handlePasswordChange(e.target.value); }}
+            onChange={(e) => {
+              handlePasswordChange(e.target.value);
+            }}
             disabled={isLoading}
             hasError={passwordError !== null}
             {...(passwordError !== null && { errorMessage: passwordError })}

@@ -1,16 +1,22 @@
 import { expect, test } from '@playwright/test';
 
-import { loginAsTestUser, TEST_EMAIL, TEST_PASSWORD } from './helpers/auth';
+import { TEST_EMAIL, TEST_PASSWORD, loginAsTestUser } from './helpers/auth';
 
 test.describe('Login page', () => {
-  test('happy path: valid credentials redirect to /dashboard', async ({ page }) => {
+  test('happy path: valid credentials redirect to /dashboard', async ({
+    page,
+  }) => {
     await loginAsTestUser(page);
 
     await expect(page).toHaveURL(/\/dashboard/);
-    await expect(page.getByRole('heading', { name: /dashboard/i })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /dashboard/i }),
+    ).toBeVisible();
   });
 
-  test('shows an inline error on invalid credentials (401)', async ({ page }) => {
+  test('shows an inline error on invalid credentials (401)', async ({
+    page,
+  }) => {
     await page.goto('/login');
 
     await page.getByLabel(/email/i).fill(TEST_EMAIL);

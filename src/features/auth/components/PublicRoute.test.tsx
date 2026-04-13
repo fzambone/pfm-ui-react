@@ -3,7 +3,6 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 import { describe, expect, it, vi } from 'vitest';
 
 import { useAuth } from '../useAuth';
-
 import { PublicRoute } from './PublicRoute';
 
 // vi.mock is hoisted above all imports at runtime by Vitest.

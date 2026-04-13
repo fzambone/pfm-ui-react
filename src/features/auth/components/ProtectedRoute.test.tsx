@@ -3,7 +3,6 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 import { describe, expect, it, vi } from 'vitest';
 
 import { useAuth } from '../useAuth';
-
 import { ProtectedRoute } from './ProtectedRoute';
 
 // Mock useAuth so tests control auth state without a real provider or localStorage.
