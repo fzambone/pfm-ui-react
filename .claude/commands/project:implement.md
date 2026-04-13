@@ -175,10 +175,10 @@ All three must PASS before the story is considered done.
 ### Gate 1 — Build and test
 
 ```
-pnpm ci
+pnpm ci && pnpm build-storybook
 ```
 
-`pnpm ci` runs: lint → type-check → test with coverage → build. Fix all failures before proceeding.
+`pnpm ci` runs: lint → type-check → test with coverage → build. `pnpm build-storybook` catches story/MDX parse errors and Tailwind v4 token issues that only surface in the Storybook pipeline. Fix all failures before proceeding.
 
 ### Gate 2 — Acceptance verification
 

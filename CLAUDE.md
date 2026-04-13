@@ -21,7 +21,7 @@
   Scope = feature or UI concern (e.g. `auth`, `dashboard`, `household`, `routing`).
 
 - **Git:** Trunk-based, squash-merge, short-lived branches: `feat/<scope>-<description>-<N>`
-- **CI Gate:** `pnpm lint && pnpm type-check && pnpm test:coverage && pnpm build`. All must pass.
+- **CI Gate:** `pnpm lint && pnpm type-check && pnpm test:coverage && pnpm build && pnpm build-storybook`. All must pass.
 
 ## Non-Negotiables — Blocking Issues
 
@@ -33,6 +33,7 @@
 6. **Hermetic tests.** Unit/component = Vitest + Testing Library, never real network calls (use `msw` for API mocking when introduced). E2E = Playwright against the built app.
 7. **Coverage gate.** 80% minimum on branches, functions, lines, statements. Enforced in CI.
 8. **Design system first.** All UI is built from centralized, atomic, generic shared components. No inline styles without explicit approval. No hardcoded visual values — use design tokens via Tailwind classes.
+9. **Fix root config, not symptoms.** When a tooling conflict arises between ESLint, Prettier, Vitest, or Storybook (e.g., parser mismatch, duplicate plugin, incompatible rule), fix the root configuration. Never add `// eslint-disable`, `/* prettier-ignore */`, or build flag workarounds as a first response — those mask the actual misconfiguration and compound over time.
 
 ## Design System Philosophy
 

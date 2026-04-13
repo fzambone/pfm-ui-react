@@ -12,7 +12,7 @@ Review the actual code — read every changed file, check for test coverage, ver
 - [ ] No `as` type casting unless interfacing with untyped third-party code
 - [ ] Discriminated unions used for state with multiple variants (loading/error/success)
 - [ ] All function parameters and return types are explicitly typed (or correctly inferred)
-- [ ] `type` used for object shapes, `interface` only when extension is expected
+- [ ] `interface` used for all object shapes — enforced by `@typescript-eslint/consistent-type-definitions`
 - [ ] `unknown` used instead of `any` for truly unknown external data
 - [ ] Generic type parameters are constrained when possible
 
@@ -93,6 +93,8 @@ Review the actual code — read every changed file, check for test coverage, ver
 ## Final Verification
 
 - [ ] `pnpm ci` passes (lint + type-check + test:coverage + build)
+- [ ] `pnpm build-storybook` passes — story/MDX parse errors and Tailwind v4 token issues only surface here
+- [ ] No `// eslint-disable`, `/* prettier-ignore */`, or build flag workarounds — fix root config instead
 - [ ] Commit message follows: `type(scope): description` + `closes #N`
 
 ---
