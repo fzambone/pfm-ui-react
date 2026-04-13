@@ -90,6 +90,12 @@ Review the actual code — read every changed file, check for test coverage, ver
 - [ ] Images have explicit `width` and `height` to prevent layout shift
 - [ ] No unnecessary `useEffect` chains
 
+## Bundle Size
+- [ ] No new dependency >50KB (minified+gzip) added without justification — check with `pnpm why <pkg>` and bundlephobia
+- [ ] New routes use `React.lazy` + `Suspense` for code splitting — never import page-level components directly
+- [ ] Images use modern formats (WebP/AVIF), have explicit `width`/`height`, and use `loading="lazy"` for below-the-fold content
+- [ ] No unnecessary `useEffect` chains that trigger cascading re-fetches or redundant network calls
+
 ## Final Verification
 
 - [ ] `pnpm ci` passes (lint + type-check + test:coverage + build)
@@ -114,3 +120,4 @@ Categories:
 7. Linting and Format
 8. Architecture
 9. Performance
+10. Bundle Size
