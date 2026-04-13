@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { callLogin, LoginError } from './login';
+import { LoginError, callLogin } from './login';
 
 // Spy on the global fetch so no real network calls are made.
 const mockFetch = vi.fn();
@@ -19,7 +19,11 @@ describe('callLogin', () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       status: 200,
-      json: () => Promise.resolve({ token: 'tok-abc', expires_at: '2099-01-01T00:00:00Z' }),
+      json: () =>
+        Promise.resolve({
+          token: 'tok-abc',
+          expires_at: '2099-01-01T00:00:00Z',
+        }),
     });
 
     const result = await callLogin('user@example.com', 'secret');
@@ -34,7 +38,11 @@ describe('callLogin', () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       status: 200,
-      json: () => Promise.resolve({ token: 'tok-xyz', expires_at: '2030-06-15T08:00:00Z' }),
+      json: () =>
+        Promise.resolve({
+          token: 'tok-xyz',
+          expires_at: '2030-06-15T08:00:00Z',
+        }),
     });
 
     const { expiresAt } = await callLogin('a@b.com', 'pw');
@@ -49,7 +57,9 @@ describe('callLogin', () => {
       json: () => Promise.resolve({ message: 'invalid credentials' }),
     });
 
-    const error = await callLogin('bad@example.com', 'wrong').catch((e: unknown) => e);
+    const error = await callLogin('bad@example.com', 'wrong').catch(
+      (e: unknown) => e,
+    );
     expect(error).toBeInstanceOf(LoginError);
     expect((error as LoginError).status).toBe(401);
   });
@@ -78,7 +88,8 @@ describe('callLogin', () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       status: 200,
-      json: () => Promise.resolve({ token: 'tok', expires_at: '2099-01-01T00:00:00Z' }),
+      json: () =>
+        Promise.resolve({ token: 'tok', expires_at: '2099-01-01T00:00:00Z' }),
     });
 
     await callLogin('user@example.com', 'mypassword');

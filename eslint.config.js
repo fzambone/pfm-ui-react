@@ -87,7 +87,7 @@ export default tseslint.config(
             },
           ],
           pathGroupsExcludedImportTypes: ['builtin'],
-          'newlines-between': 'always',
+          'newlines-between': 'ignore',
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],

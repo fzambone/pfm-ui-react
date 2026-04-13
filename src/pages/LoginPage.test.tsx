@@ -39,7 +39,9 @@ describe('LoginPage', () => {
 
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /sign in/i }),
+    ).toBeInTheDocument();
   });
 
   it('calls handleEmailChange when the user types in the email field', async () => {
@@ -130,7 +132,10 @@ describe('LoginPage', () => {
     // The Input component renders the error inside the label group, associated
     // via aria-describedby — getByText finds it without needing a role query.
     expect(screen.getByText('Email is required.')).toBeInTheDocument();
-    expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
   });
 
   it('password field shows its inline error when passwordError is set', () => {
@@ -141,7 +146,10 @@ describe('LoginPage', () => {
     render(<LoginPage />);
 
     expect(screen.getByText('Password is required.')).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText(/password/i)).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
   });
 
   it('password field has type="password" so characters are masked', () => {
@@ -149,7 +157,10 @@ describe('LoginPage', () => {
 
     render(<LoginPage />);
 
-    expect(screen.getByLabelText(/password/i)).toHaveAttribute('type', 'password');
+    expect(screen.getByLabelText(/password/i)).toHaveAttribute(
+      'type',
+      'password',
+    );
   });
 
   it('all form fields and button are keyboard-accessible', () => {
@@ -161,6 +172,8 @@ describe('LoginPage', () => {
     // and getByRole with a name matcher (both fail if ARIA is broken).
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /sign in/i }),
+    ).toBeInTheDocument();
   });
 });

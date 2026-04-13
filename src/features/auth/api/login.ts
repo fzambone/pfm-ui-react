@@ -50,7 +50,10 @@ export async function callLogin(
     }
 
     // The backend uses snake_case; map to camelCase for the rest of the app.
-    const data = (await response.json()) as { token: string; expires_at: string };
+    const data = (await response.json()) as {
+      token: string;
+      expires_at: string;
+    };
     return { token: data.token, expiresAt: data.expires_at };
   } catch (error) {
     if (error instanceof LoginError) throw error;

@@ -475,9 +475,9 @@ export function formatMoney(cents: number, currency: CurrencyCode): string {
 
 ## Environment Variables
 
-| Variable       | Description                                               | Default |
-| -------------- | --------------------------------------------------------- | ------- |
-| `VITE_API_URL` | Backend base URL — leave empty in dev (proxy handles it)  | `""`    |
+| Variable       | Description                                              | Default |
+| -------------- | -------------------------------------------------------- | ------- |
+| `VITE_API_URL` | Backend base URL — leave empty in dev (proxy handles it) | `""`    |
 
 **Local development:** do not set `VITE_API_URL`. The Vite dev server proxies `/auth`, `/api`, and `/health` to `https://pfm-go-api.fly.dev` server-side, so no CORS headers are needed and no remote origin is sent from the browser.
 

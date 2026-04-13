@@ -2,9 +2,8 @@ import { act, renderHook } from '@testing-library/react';
 import { type NavigateFunction, useNavigate } from 'react-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { callLogin, LoginError } from '../api/login';
+import { LoginError, callLogin } from '../api/login';
 import { useAuth } from '../useAuth';
-
 import { useLoginForm } from './useLoginForm';
 
 // Mock all external dependencies so the hook is tested in isolation.
@@ -121,7 +120,9 @@ describe('useLoginForm', () => {
       });
 
       expect(mockLogin).toHaveBeenCalledWith('tok-abc', '2099-01-01T00:00:00Z');
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard', { replace: true });
+      expect(mockNavigate).toHaveBeenCalledWith('/dashboard', {
+        replace: true,
+      });
       expect(result.current.error).toBeNull();
     });
 
@@ -158,7 +159,9 @@ describe('useLoginForm', () => {
 
   describe('handleSubmit — errors', () => {
     it('sets an "invalid credentials" error on 401', async () => {
-      vi.mocked(callLogin).mockRejectedValueOnce(new LoginError(401, 'invalid'));
+      vi.mocked(callLogin).mockRejectedValueOnce(
+        new LoginError(401, 'invalid'),
+      );
 
       const { result } = renderHook(() => useLoginForm());
 
@@ -176,7 +179,9 @@ describe('useLoginForm', () => {
     });
 
     it('sets a generic error on non-401 LoginError', async () => {
-      vi.mocked(callLogin).mockRejectedValueOnce(new LoginError(500, 'server error'));
+      vi.mocked(callLogin).mockRejectedValueOnce(
+        new LoginError(500, 'server error'),
+      );
 
       const { result } = renderHook(() => useLoginForm());
 
@@ -194,7 +199,9 @@ describe('useLoginForm', () => {
     });
 
     it('sets isLoading to false after an error', async () => {
-      vi.mocked(callLogin).mockRejectedValueOnce(new LoginError(401, 'invalid'));
+      vi.mocked(callLogin).mockRejectedValueOnce(
+        new LoginError(401, 'invalid'),
+      );
 
       const { result } = renderHook(() => useLoginForm());
 
